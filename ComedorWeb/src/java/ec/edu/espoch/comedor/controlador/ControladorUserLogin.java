@@ -83,9 +83,9 @@ public class ControladorUserLogin implements Serializable {
             lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
             if (lstRoles.size() > 0) {
                 logeado = true;
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", username);
                 rolCarrera = lstRoles.get(0);
                 this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
             } else {
                 logeado = false;
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
