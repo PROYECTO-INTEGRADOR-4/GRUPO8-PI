@@ -30,14 +30,14 @@ public class mLogin {
             ArrayOfRolCarrera usuario = autenticarUsuarioCarrera(strUsuarioCedula, strUsuarioPassword);
             if (usuario != null) {
                 List<RolCarrera> rol = usuario.getRolCarrera();
-                rol.stream().forEach((Rol) -> {
+                for (RolCarrera Rol : rol) {
                     /*
                      System.out.println("\nCod Carrera: " + Rol.getCodigoCarrera());
                      System.out.println("Rol: " + Rol.getNombreRol());
                      */
 
                     roles.add(Rol);
-                });
+                }
             }
         } catch (Exception e) {
             throw e;
