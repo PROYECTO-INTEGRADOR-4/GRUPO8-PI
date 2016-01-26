@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container" style="margin-top: 4px;">
+
+            <p:graphicImage   
+                value="/resources/logos/SGI.png"  
+                style="float: left; height: 70px"
+                />
+            <p:graphicImage   
+                value="/resources/logos/SAC Ltda.png" 
+                style="float: right; height: 80px"
+                /> 
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a 
+                    href="index.xhtml" 
+                    class="navbar-brand" 
+                    title="Inicio" 
+                    >
+                    <b style="font-size: 30px; color: #08417F"></b>
+                    <b style="font-size: 20px; color: #08417F"></b> <br></br>
+                    <b style="font-size: 13px; color: #08417F">COMEDOR POLITÉCNICO</b>
+                </a>
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.xhtml" title="Inicio">Inicio</a></li>
+                    <li><a href="login.xhtml" title="Acceso al sistema">Ingreso</a></li>
+                    <li><a href="registroadmin.xhtml" title="Registro en el sitema">Registro</a></li>
+                    <li><a href="nosotros.xhtml" title="Acerca de nosotros">Nosotros</a></li>
+                </ul>
+
+            </div><!--/.nav-collapse -->
+
+
+        </div>
+    </nav>
+</ui:composition>
+

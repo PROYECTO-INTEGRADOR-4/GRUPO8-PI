@@ -1,12 +1,74 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  
+                xmlns:h="http://java.sun.com/jsf/html"  
+                xmlns:f="http://java.sun.com/jsf/core"  
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/plantilla/principal/main.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="COMEDOR POLITÉCNICO"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content"> 
+        <div class="page-header">
+            <h1>Bienvenidos</h1>
+        </div>
+        <div class="well">
+            <p style="text-align: justify;">                
+                hola
+            </p>
+        </div>
+        <div class="page-header">
+            <h1>Nuestros Servicios</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Compartir Documentos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <center>
+                            <p:graphicImage   value="/resources/img/servicios/compartir.jpg" title="Imagen de la Facultad de Ciencias"  alt="imagen" width="300" height="275"/>
+
+                            <span class="first-line"><p style="margin-top: 10px;">Reserve un laboratorio de la Facultad de Ciencias,
+                                    para sus prácticas, talleres, clases entre otros, de forma rápida y sencilla. </p>
+                            </span>
+                        </center>               
+
+                    </div>
+                </div>
+            </div><!-- /.col-sm-4 -->
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Almacenar documentos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <center>
+                            <p:graphicImage   value="/resources/img/servicios/almacenar.jpg" title="Imagen de la Facultad de Ciencias"  alt="imagen" width="300" height="275"/>
+                            <span class="first-line"><p style="margin-top: 10px;">Reserve materiales en la Facultad de Ciencias,
+                                    para realizar sus prácticas, talleres, clases entre otros, de forma rápida y sencilla. </p></span>
+                        </center> 
+                    </div>
+                </div>
+            </div><!-- /.col-sm-4 -->
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Buscar documentos</h3>
+                    </div>
+                    <div class="panel-body">
+                        <center>
+                            <p:graphicImage   value="/resources/img/servicios/buscar-descargar.jpg" title="Imagen de la Facultad de Ciencias"  alt="imagen" width="300" height="275"/>
+                            <span class="first-line"><p style="margin-top: 10px;">Revise la disponibilidad de laboratorios
+                                    y materiales para realizar sus trabajos de  manera inmediata sin necesidad de recurrir personalmente
+                                    a la institucción.</p></span>
+                        </center> 
+                    </div>
+                </div>
+            </div><!-- /.col-sm-4 -->
+        </div>
+    </ui:define>
+</ui:composition>        
 
