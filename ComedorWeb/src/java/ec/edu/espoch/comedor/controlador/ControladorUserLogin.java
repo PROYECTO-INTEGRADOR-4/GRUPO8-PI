@@ -92,7 +92,7 @@ public class ControladorUserLogin implements Serializable {
             }
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
-        context.addCallbackParam("loggedIn", logeado);
+        context.addCallbackParam("logeado", logeado);
         if (logeado) {
             context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
         }
