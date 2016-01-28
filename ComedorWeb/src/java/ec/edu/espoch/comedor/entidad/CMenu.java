@@ -16,16 +16,18 @@ public class CMenu {
     
    private int codigoMenu;
   private String descripcionMenu;
-  private java.util.Date fecha_generacion;
+  CServicio objservicio;
 
     public CMenu() {
     }
 
-    public CMenu(int codigoMenu, String descripcionMenu, Date fecha_generacion) {
+    public CMenu(int codigoMenu, String descripcionMenu, CServicio objservicio) {
         this.codigoMenu = codigoMenu;
         this.descripcionMenu = descripcionMenu;
-        this.fecha_generacion = fecha_generacion;
+        this.objservicio = objservicio;
     }
+
+    
 
     public int getCodigoMenu() {
         return codigoMenu;
@@ -43,13 +45,15 @@ public class CMenu {
         this.descripcionMenu = descripcionMenu;
     }
 
-    public Date getFecha_generacion() {
-        return fecha_generacion;
+    public CServicio getObjservicio() {
+        return objservicio;
     }
 
-    public void setFecha_generacion(Date fecha_generacion) {
-        this.fecha_generacion = fecha_generacion;
+    public void setObjservicio(CServicio objservicio) {
+        this.objservicio = objservicio;
     }
+
+   
   
   
     
