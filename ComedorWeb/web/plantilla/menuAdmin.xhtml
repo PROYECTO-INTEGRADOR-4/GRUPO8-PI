@@ -6,23 +6,41 @@
 
     <div class="ui-fluid">
 
-        <p:panelGrid layout="grid" columns="1" style="margin-top:20px">
+        <p:panelGrid 
+            layout="grid" 
+            columns="1" 
+            style="margin-top:20px"   
+            styleClass="ui-panelgrid-blank">
             <h:form>
+
                 <p:panelMenu>
-                    <p:submenu label="Autenticación">
+                    <p:submenu label="#{controladorUserLogin.objUserLogin.nombres} #{controladorUserLogin.objUserLogin.apellidos}">
                         <p:menuitem 
-                            value="Iniciar Sesión" 
-                            icon="ui-icon-key" 
-                            oncomplete="PF('dlgLogin').show()"
-                            update="dialogLogin"
-                            />
-                        <p:menuitem value="Update" url="#" icon="ui-icon-arrowrefresh-1-w"/>
+                            value="Inicio" 
+                            outcome="/Administrador/bienvenida/inicio.xhtml" 
+                            icon="ui-icon-home"/>
+                        <p:menuitem 
+                            value="Mis Datos" 
+                            url="#" 
+                            icon="ui-icon-person"/>
+                        <p:menuitem 
+                            value="Salir" 
+                            actionListener="#{controladorUserLogin.logout}"
+                            oncomplete="logout(xhr, status, args)" 
+                            icon="ui-icon-power"/>
+
                     </p:submenu>
-                    <p:submenu label="Non-Ajax Menuitem">
-                        <p:menuitem value="Delete" url="#" icon="ui-icon-close"/>
+                    <p:submenu label="Servicios">
+                        <p:menuitem 
+                            value="Desayuno"
+                            outcome="/Administrador/desayuno/listaDesayuno.xhtml" 
+                            icon="ui-icon-coffee"/>
+                        <p:menuitem 
+                            value="Almuerzo" url="#" icon="ui-icon-food"/>
+
                     </p:submenu>
                     <p:separator />
-                    <p:submenu label="Navigations" >
+                    <p:submenu label="Informes" >
                         <p:submenu label="Links" icon="ui-icon-extlink">
                             <p:submenu label="PrimeFaces" icon="ui-icon-heart">
                                 <p:menuitem value="Home" url="http://www.primefaces.org" icon="ui-icon-home" />
@@ -35,7 +53,8 @@
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
+
         </p:panelGrid>
     </div>
-    <ui:include src="../login.xhtml"/>
+
 </ui:composition>

@@ -14,10 +14,10 @@
                 <ui:insert name="title"/>
             </title>
             <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="keyword" content="Espoch, Sistema, Ciencias, Facultad, foqc, Riobamba, Ecuador, Clase"/>
             </f:facet>
             <f:facet name="middle">
                 <h:outputStylesheet name="/bootstrap/css/bootstrap.css" />            
@@ -29,12 +29,10 @@
 
             <h:outputStylesheet library="css" name="jsfcrud.css"/>
             <h:outputScript library="js" name="jsfcrud.js"/>
-
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
         </h:head>
 
         <h:body>
-            <p:growl id="mensajes" showDetail="true" life="3000" />
+
             <ui:debug />
             <p:layout fullPage="true"  resizeTitle="resize" style="background-color:#FFFFFF;">
 
@@ -42,14 +40,14 @@
                     <ui:include src="header.xhtml" />
                 </p:layoutUnit>
 
-                <p:layoutUnit id="west" position="west" size="275" header="Menú" collapsible="true" effect="drop">
-                    <ui:include src="menu.xhtml"/>
+                <p:layoutUnit id="west" position="west" size="275" header="Menú" collapsible="true" effect="slide">
+                    <ui:include src="menuAdmin.xhtml" />
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center" id="centerLayout">
-
+                <p:layoutUnit id="centerLayout" position="center">
                     <h:form id="mainForm">
-                        <ui:insert name="content" />
+                        <p:messages autoUpdate="true" id="msgs" showDetail="true" showSummary="true" />
+                        <ui:insert name="body"/>
                     </h:form>
                 </p:layoutUnit>
 
@@ -61,8 +59,15 @@
 
             </p:layout>
         </h:body>
-
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <script type="text/javascript">
+            function logout(xhr, status, args) {
+                setTimeout(function () {
+                    window.location = '../../index.xhtml';
+                }, 500);
+            }</script>
     </f:view>
+
 </html>
 
 

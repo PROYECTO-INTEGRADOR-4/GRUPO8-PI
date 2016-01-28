@@ -8,12 +8,14 @@ package ec.edu.espoch.comedor.controlador;
 import ec.edu.espoch.comedor.modelo.mLogin;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import wsInfoCarrera.Persona;
 import wsSeguridad.RolCarrera;
@@ -34,13 +36,15 @@ public class ControladorUserLogin implements Serializable {
     private String username;
     private String password;
     private Persona objUserLogin;
-    private boolean logeado = false;
     private RolCarrera rolCarrera;
+    private boolean logeado = false;
 
     /**
      * Creates a new instance of ControladorUserLogin
      */
     public ControladorUserLogin() {
+        this.objUserLogin = new Persona();
+        this.rolCarrera = new RolCarrera();
     }
 
     public boolean estaLogeado() {
@@ -70,21 +74,54 @@ public class ControladorUserLogin implements Serializable {
         this.password = password;
     }
 
+    public Persona getObjUserLogin() {
+        return objUserLogin;
+    }
+
+    public void setObjUserLogin(Persona objUserLogin) {
+        this.objUserLogin = objUserLogin;
+    }
+
+    @PostConstruct
+    public void reinit() {
+    }
+
     /*
      Login
      */
     public void login(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
+        /*
+         if (username != null && password != null) {
+         ArrayList<RolCarrera> lstRoles;
+         lstRoles = new ArrayList<>();
+         lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
+         if (lstRoles.size() > 0) {
+         logeado = true;
+         rolCarrera = lstRoles.get(0);
+         this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
+         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
+         } else {
+         logeado = false;
+         message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
+         }
+         }
+         */
 
+        //Por el momento para administrador
         if (username != null && password != null) {
-            ArrayList<RolCarrera> lstRoles;
-            lstRoles = new ArrayList<>();
-            lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
-            if (lstRoles.size() > 0) {
+            //  ArrayList<RolCarrera> lstRoles;
+            //lstRoles = new ArrayList<>();
+            //lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
+            if (username.equals("0200949113") && password.equals("0200949113")) {
                 logeado = true;
-                rolCarrera = lstRoles.get(0);
-                this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
+                // rolCarrera = lstRoles.get(0);
+                //this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
+                this.rolCarrera.setNombreRol("Administrador");
+                this.objUserLogin.setCedula(username);
+                this.objUserLogin.setApellidos("Sanchez");
+                this.objUserLogin.setNombres("Zoila");
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
             } else {
                 logeado = false;
@@ -94,20 +131,28 @@ public class ControladorUserLogin implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("logeado", logeado);
         if (logeado) {
-            context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
+            redireccionarPaginas(context);
+            //context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
         }
     }
 
-    /*
-     private void redireccionarPaginas(RequestContext context) {
-     switch (this.objUsuarioLogin.getObjRol().getStrDescripcionRol()) {
-     case "Administrador":
-     context.addCallbackParam("view", "Administrador/bienvenida/inicio.xhtml");
-     break;
-     case "Secretaria":
-     context.addCallbackParam("view", "Secretaria/bienvenida/inicio.xhtml");
-     break;
-     default:
-     context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
-     }*/
+    private void redireccionarPaginas(RequestContext context) {
+        switch (this.rolCarrera.getNombreRol()) {
+            case "Administrador":
+                context.addCallbackParam("view", "Administrador/bienvenida/inicio.xhtml");
+                break;
+            case "Secretaria":
+                context.addCallbackParam("view", "Secretaria/bienvenida/inicio.xhtml");
+                break;
+            default:
+                context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
+        }
+    }
+
+    public void logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(false);
+        session.invalidate();
+        logeado = false;
+    }
 }

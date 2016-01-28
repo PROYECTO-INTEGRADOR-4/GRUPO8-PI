@@ -9,9 +9,9 @@
         <title>Login</title>
     </h:head>
     <ui:composition>
-        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
         <p:dialog 
+            id="dialogLogin"
             header="Login" 
             widgetVar="dlgLogin" 
             resizable="false" 
@@ -38,10 +38,15 @@
 
                     <f:facet name="footer">
                         <p:commandButton 
-                            value="Login" 
-                            update="growl" 
-                            actionListener="#{controladorUserLogin.login}"
-                            oncomplete="handleLoginRequest(xhr, status, args)" />
+                            id="loginButton"
+                            icon="ui-icon-key" 
+                            value="Iniciar Sesión"
+                            actionListener="#{controladorUserLogin.login}" 
+                            update=":mensajes"
+                            oncomplete="handleLoginRequest(xhr, status, args)"
+                            style="margin-right: -35px"
+                            />
+
                     </f:facet>  
                 </p:panelGrid>
                 <script type="text/javascript">

@@ -53,15 +53,15 @@ public class Principal {
     }
 
     public static void main(String arg[]) {
-        // ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
+        /* 
+         ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
 
-        /*
          List<RolCarrera> rol = carrera.getRolCarrera();
          rol.stream().forEach((Rol) -> {
          System.out.println("Carrera: " + Rol.getCodigoCarrera());
          System.out.println("Rol: " + Rol.getNombreRol());
          });
-         
+        
          ArrayOfInstitucionEstudiante estudiante = getInstitucionEstudiante("180419297-7");
          List<InstitucionEstudiante> datosEstudiante = estudiante.getInstitucionEstudiante();
          datosEstudiante.stream().forEach((datosE) -> {
@@ -93,27 +93,31 @@ public class Principal {
         /*
          Si el usuario al menos tiene un rol, quiere decir que se encutra
          registrado como estudiante o docente de la poli.
+        
+         System.out.print("Ingrese su numero de cedula con guion:");
+         Scanner c = new Scanner(System.in);
+         String cedula = c.nextLine();
+         System.out.print("Password:");
+         Scanner p = new Scanner(System.in);
+         String password = p.nextLine();
+
+         ArrayList<RolCarrera> lstRoles;
+         lstRoles = new ArrayList<>();
+
+         Persona objPersona = new Persona();  //Variable de InfoCarrera
+         lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(cedula, password);
+         if (lstRoles.size() > 0) {
+         System.out.println("\n Credenciales correctos: ");
+         String strCarreraCod = lstRoles.get(0).getCodigoCarrera();
+         objPersona = mLogin.datosUsuario(strCarreraCod, cedula);
+         System.out.println("\n Datos Usuario: ");
+         System.out.println("Cedula: " + objPersona.getCedula());
+         }
          */
-        System.out.print("Ingrese su numero de cedula con guion:");
-        Scanner c = new Scanner(System.in);
-        String cedula = c.nextLine();
-        System.out.print("Password:");
-        Scanner p = new Scanner(System.in);
-        String password = p.nextLine();
 
-        ArrayList<RolCarrera> lstRoles;
-        lstRoles = new ArrayList<>();
-
-        Persona objPersona = new Persona();  //Variable de InfoCarrera
-        lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(cedula, password);
-        if (lstRoles.size() > 0) {
-            System.out.println("\n Credenciales correctos: ");
-            String strCarreraCod = lstRoles.get(0).getCodigoCarrera();
-            objPersona = mLogin.datosUsuario(strCarreraCod, cedula);
-            System.out.println("\n Datos Usuario: ");
-            System.out.println("Cedula: " + objPersona.getCedula());
-        }
-
+        Persona objPerson = getDatosUsuarioCarrera("EIS", "172292236-4");
+        System.out.println("\nNombre: " + objPerson.getNombres());
+        System.out.println("\nApellido: " + objPerson.getApellidos());
     }
 
     private static Estudiante getDatosCompletosEstudiante(java.lang.String strCedula) {
@@ -140,6 +144,20 @@ public class Principal {
         binding.setHandlerChain(handlerChain);
 
         return port.getTodasCarreras();
+    }
+
+    private static Persona getDatosUsuarioCarrera(java.lang.String codCarrera, java.lang.String cedula) {
+        wsInfoCarrera.InfoCarrera service = new wsInfoCarrera.InfoCarrera();
+        wsInfoCarrera.InfoCarreraSoap port = service.getInfoCarreraSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getDatosUsuarioCarrera(codCarrera, cedula);
+
     }
 
 }

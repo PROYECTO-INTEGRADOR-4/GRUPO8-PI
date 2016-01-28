@@ -8,15 +8,13 @@
 
         <p:panelGrid layout="grid" columns="1" style="margin-top:20px">
             <h:form>
-                <p:growl id="messages" showDetail="false"/>
+
                 <p:panelMenu>
-                    <p:submenu label="Autenticación">
-                        <p:menuitem 
-                            value="Iniciar Sesión" 
-                            update="messages" 
-                            icon="ui-icon-disk" 
-                            oncomplete="PF('dlgLogin').show()"
-                            />
+                    <p:submenu label="Cliente">
+                        <p:menuitem value="Update" url="#" icon="ui-icon-arrowrefresh-1-w"/>
+                        <p:menuitem value="Salir" actionListener="#{controladorLogin.logout}"
+                                    style="margin-right:20px;"
+                                    oncomplete="logout(xhr, status, args)" icon="ui-icon-power"/>
                         <p:menuitem value="Update" url="#" icon="ui-icon-arrowrefresh-1-w"/>
                     </p:submenu>
                     <p:submenu label="Non-Ajax Menuitem">
@@ -36,7 +34,13 @@
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
+            <script type="text/javascript">
+                function logout(xhr, status, args) {
+                    setTimeout(function () {
+                        window.location = '../../index.xhtml';
+                    }, 500);
+                }</script>
         </p:panelGrid>
     </div>
-    <ui:include src="../login.xhtml"/>
+
 </ui:composition>

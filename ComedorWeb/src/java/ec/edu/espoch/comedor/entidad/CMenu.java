@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ec.edu.espoch.comedor.entidades;
+package ec.edu.espoch.comedor.entidad;
 
 import java.util.Date;
 
