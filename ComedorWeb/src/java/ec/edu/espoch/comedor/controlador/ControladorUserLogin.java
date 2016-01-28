@@ -5,9 +5,7 @@
  */
 package ec.edu.espoch.comedor.controlador;
 
-import ec.edu.espoch.comedor.modelo.mLogin;
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
