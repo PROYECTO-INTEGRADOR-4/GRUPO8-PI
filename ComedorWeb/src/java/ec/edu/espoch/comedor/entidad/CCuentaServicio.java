@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author SYSTEMarket-pc
  */
-public class CServicioCliente {
+public class CCuentaServicio {
   private int   codigoServicioCliente;
   private double costo;
    private java.util.Date fechaServicioCliente;
@@ -20,7 +20,7 @@ public class CServicioCliente {
   CServicio objServicio;
   CCuenta objCuenta;
 
-    public CServicioCliente(int codigoServicioCliente, double costo, Date fechaServicioCliente, int cantidad, CServicio objServicio, CCuenta objCuenta) {
+    public CCuentaServicio(int codigoServicioCliente, double costo, Date fechaServicioCliente, int cantidad, CServicio objServicio, CCuenta objCuenta) {
         this.codigoServicioCliente = codigoServicioCliente;
         this.costo = costo;
         this.fechaServicioCliente = fechaServicioCliente;
@@ -29,7 +29,7 @@ public class CServicioCliente {
         this.objCuenta = objCuenta;
     }
 
-    public CServicioCliente() {
+    public CCuentaServicio() {
     }
 
     public int getCodigoServicioCliente() {
