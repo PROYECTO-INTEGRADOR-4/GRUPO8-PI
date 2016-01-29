@@ -6,25 +6,26 @@ package ec.edu.espoch.comedor.accesodatos;
  */
 public class Parametro {
 
-    private Integer posicion;
-    private Object valor; //el Object almacena datos de cualquier tipo de dato
-    private Integer tipo;
+      private  int posicion;
+    private Object valor;
+    private int tipo;
 
-    public Parametro(Integer posicion, Object valor, Integer tipo) {
+    public Parametro(int posicion, Object valor, int tipo) {
         this.posicion = posicion;
         this.valor = valor;
         this.tipo = tipo;
     }
-        public Parametro(Integer posicion, Object valor) {
+ public Parametro(int posicion, Object valor) {
         this.posicion = posicion;
         this.valor = valor;
+      
     }
-
-    public Integer getPosicion() {
+    
+    public int getPosicion() {
         return posicion;
     }
 
-    public void setPosicion(Integer posicion) {
+    public void setPosicion(int posicion) {
         this.posicion = posicion;
     }
 
@@ -36,12 +37,12 @@ public class Parametro {
         this.valor = valor;
     }
 
-    public Integer getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
-
 }
+

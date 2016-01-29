@@ -6,39 +6,18 @@
 
 package ec.edu.espoch.comedor.modelo;
 
+import ec.edu.espoch.comedor.accesodatos.AccesoDatos;
+import ec.edu.espoch.comedor.accesodatos.ConjuntoResultado;
+import ec.edu.espoch.comedor.accesodatos.Parametro;
 import ec.edu.espoch.comedor.entidad.CMenu;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import wsInfoCarrera.Parametro;
+//import wsInfoCarrera.Parametro;
 
 /**
  *
  * @author SYSTEMarket-pc
  */
 public class MMenu {
-    
-     public static boolean insertarMenu(CMenu menu) throws Exception {
-        boolean respuesta = false;
-        try {
-            String sql = "Select * from fn_insert_tmenu(?)";
-            ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, menu.getDescripcionMenu()));
-            lstpar.add(new Parametro(1, menu.getObjservicio().getCodigoservicio()));
-            
            
-            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-            while (rs.next()) {
-                if (rs.getBoolean(0) == true) {
-                    respuesta = true;
-                }
-            }
-            rs = null;
-            lstpar= null;
-        } catch (Exception e) {
-            throw e;
-        }
-        return respuesta;
-    }
-
-    
-    
 }

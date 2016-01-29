@@ -6,11 +6,14 @@
 
 package ec.edu.espoch.comedor.modelo;
 
+import ec.edu.espoch.comedor.entidad.CServicio;
+
 /**
  *
  * @author SYSTEMarket-pc
  */
 public class MServicio {
+    
     
     
 }
