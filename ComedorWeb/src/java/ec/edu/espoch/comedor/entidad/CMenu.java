@@ -13,8 +13,7 @@ import java.util.Date;
  * @author SYSTEMarket-pc
  */
 public class CMenu {
-    
-   private int codigoMenu;
+  private int codigoMenu;
   private String descripcionMenu;
   CServicio objservicio;
 
@@ -26,8 +25,6 @@ public class CMenu {
         this.descripcionMenu = descripcionMenu;
         this.objservicio = objservicio;
     }
-
-    
 
     public int getCodigoMenu() {
         return codigoMenu;
@@ -52,9 +49,10 @@ public class CMenu {
     public void setObjservicio(CServicio objservicio) {
         this.objservicio = objservicio;
     }
-
-   
-  
   
     
+
+
+
+
 }
