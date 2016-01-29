@@ -14,15 +14,14 @@ import java.util.Date;
  */
 public class CCuentaServicio {
   private int   codigoServicioCliente;
-  private double costo;
    private java.util.Date fechaServicioCliente;
   private int cantidad;
   CServicio objServicio;
   CCuenta objCuenta;
 
-    public CCuentaServicio(int codigoServicioCliente, double costo, Date fechaServicioCliente, int cantidad, CServicio objServicio, CCuenta objCuenta) {
+    public CCuentaServicio(int codigoServicioCliente, Date fechaServicioCliente, int cantidad, CServicio objServicio, CCuenta objCuenta) {
         this.codigoServicioCliente = codigoServicioCliente;
-        this.costo = costo;
+        
         this.fechaServicioCliente = fechaServicioCliente;
         this.cantidad = cantidad;
         this.objServicio = objServicio;
@@ -38,14 +37,6 @@ public class CCuentaServicio {
 
     public void setCodigoServicioCliente(int codigoServicioCliente) {
         this.codigoServicioCliente = codigoServicioCliente;
-    }
-
-    public double getCosto() {
-        return costo;
-    }
-
-    public void setCosto(double costo) {
-        this.costo = costo;
     }
 
     public Date getFechaServicioCliente() {
