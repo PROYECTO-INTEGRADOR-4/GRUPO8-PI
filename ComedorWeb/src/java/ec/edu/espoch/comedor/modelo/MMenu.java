@@ -25,7 +25,7 @@ public class MMenu {
     public static boolean insertarMenu(CMenu menu) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "Select * from fn_insert_tcuenta(?)";
+            String sql = "Select * from fn_insert_tcuenta(?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
             lstpar.add(new Parametro(1, menu.getCodigoMenu()));
             lstpar.add(new Parametro(2, menu.getDescripcionMenu()));
@@ -66,10 +66,30 @@ public class MMenu {
         return respuesta;
 }
     
+    public static boolean elminarMenu(CMenu cuenta) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "SELECT * from fn_delete_tmenu(?)";
+            ArrayList<Parametro> lstpar = new ArrayList<>();
+            lstpar.add(new Parametro(1, cuenta.getCodigoMenu()));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw e;
+        }
+        return respuesta;
+    }
+    
+    
     public static ArrayList<CMenu> obtenerMenu() throws Exception {
         ArrayList<CMenu> lst = new ArrayList<CMenu>();
         try {
-             String sql = "SELECT * from fn_select_tcuenta()";
+             String sql = "SELECT * from fn_select_tmenu();";
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql);
             lst = llenarMenu(rs);
             rs = null;

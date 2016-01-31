@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * @author SYSTEMarket-pc
  */
 public class Mcuenta {
+    
+    
      public static boolean insertarCuenta(CCuenta cuenta) throws Exception {
         boolean respuesta = false;
         try {
@@ -56,7 +58,7 @@ public static boolean modificarCuenta(CCuenta cuenta) throws Exception {
         }
         return respuesta;
 }
-    public static boolean elimninarCuenta(int cuenta) throws Exception {
+    public static boolean elminarCuenta(CCuenta cuenta) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "select * from fn_delete_tcuenta(?)";
@@ -74,6 +76,7 @@ public static boolean modificarCuenta(CCuenta cuenta) throws Exception {
         }
         return respuesta;
     }
+    
     public static ArrayList<CCuenta> obtenerCuenta() throws Exception {
         ArrayList<CCuenta> lst = new ArrayList<CCuenta>();
         try {
@@ -107,7 +110,7 @@ public static boolean modificarCuenta(CCuenta cuenta) throws Exception {
         return lst;
     }
 
-    public static CCuenta obtenerObjetoCuenta(int cuenta) throws Exception {
+    public static CCuenta obtenerObjetoCuentaid(int cuenta) throws Exception {
         CCuenta Cuenta= null;
         ArrayList<Parametro> lstP = new ArrayList<>();
         try {

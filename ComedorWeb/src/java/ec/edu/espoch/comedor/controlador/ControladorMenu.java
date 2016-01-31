@@ -93,12 +93,29 @@ public class ControladorMenu {
             if (MMenu.modificarMenu(selMenu)) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Exito", new FacesMessage("Datos actualizados correctamente"));
-                DefaultRequestContext.getCurrentInstance().execute("wglUpdatCliente.hide()");
+                DefaultRequestContext.getCurrentInstance().execute("wglUpdatMenu.hide()");
                 this.selMenu=new CMenu();
                 cargarMenu();
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Fracaso", new FacesMessage("Datos no actualizados"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
+        }
+    }
+       public void eliminarMenu() {
+        try {
+            if (MMenu.elminarMenu(selMenu)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Datos eliminados correctamente"));
+                DefaultRequestContext.getCurrentInstance().execute("wglDeletMenu.hide()");
+                this.selMenu=new CMenu();
+                cargarMenu();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("Datos no eliminados"));
             }
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();

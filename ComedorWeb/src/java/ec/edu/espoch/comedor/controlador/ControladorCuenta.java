@@ -109,6 +109,42 @@ public class ControladorCuenta {
         }
     }
     
-      
+      public void eliminarCuenta() {
+        try {
+            if (Mcuenta.elminarCuenta(selCuenta)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Datos eliminados correctamente"));
+                DefaultRequestContext.getCurrentInstance().execute("wglDeletCuenta.hide()");
+                this.selCuenta=new CCuenta();
+                cargarCuenta();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("Datos no eliminados"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
+        }
+    }
+     
+     public void buscarCuentaId(int id) {
+        try {
+            if (objCuenta.getIdCuenta()==id) {
+                Mcuenta.obtenerObjetoCuentaid(id);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Si existe la cuenta del Cliente"));
+                DefaultRequestContext.getCurrentInstance().execute("wglBuscarCuenta.hide()");
+                this.selCuenta=new CCuenta();
+                cargarCuenta();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("No existe la cuenta del Cliente"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
+        }
+    }
+
       
 }
