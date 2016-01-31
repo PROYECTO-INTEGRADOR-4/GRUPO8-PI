@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package ec.edu.espoch.comedor.controlador;
-
-import ec.edu.espoch.comedor.entidad.CCuenta;
+import ec.edu.espoch.comedor.entidad.*;
 import ec.edu.espoch.comedor.modelo.*;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -14,73 +13,71 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.DefaultRequestContext;
-
 /**
  *
  * @author ANGELA
  */
-
 @ManagedBean
 @ViewScoped
-public class ControladorCuenta {
+public class ControladorMenu {
+    private CMenu objMenu;// st objeto para insertar
+    private CMenu selMenu;//st objeto seleccionar
+    private ArrayList <CMenu> lstMenu;
+
+    public ControladorMenu() {
+    }
+
+    public ControladorMenu(CMenu objMenu, CMenu selMenu, ArrayList<CMenu> lstMenu) {
+        this.objMenu = objMenu;
+        this.selMenu = selMenu;
+        this.lstMenu = lstMenu;
+    }
+
+    public CMenu getObjMenu() {
+        return objMenu;
+    }
+
+    public void setObjMenu(CMenu objMenu) {
+        this.objMenu = objMenu;
+    }
+
+    public CMenu getSelMenu() {
+        return selMenu;
+    }
+
+    public void setSelMenu(CMenu selMenu) {
+        this.selMenu = selMenu;
+    }
+
+    public ArrayList<CMenu> getLstMenu() {
+        return lstMenu;
+    }
+
+    public void setLstMenu(ArrayList<CMenu> lstMenu) {
+        this.lstMenu = lstMenu;
+    }
     
-     private CCuenta objCuenta;// st objeto para insertar
-    private CCuenta selCuenta;//st objeto seleccionar
-    private ArrayList <CCuenta> lstCuenta;
-
-    public ControladorCuenta() {
-    }
-
-    public ControladorCuenta(CCuenta objCuenta, CCuenta selCuenta, ArrayList<CCuenta> lstCuenta) {
-        this.objCuenta = objCuenta;
-        this.selCuenta = selCuenta;
-        this.lstCuenta = lstCuenta;
-    }
-
-    public CCuenta getObjCuenta() {
-        return objCuenta;
-    }
-
-    public void setObjCuenta(CCuenta objCuenta) {
-        this.objCuenta = objCuenta;
-    }
-
-    public CCuenta getSelCuenta() {
-        return selCuenta;
-    }
-
-    public void setSelCuenta(CCuenta selCuenta) {
-        this.selCuenta = selCuenta;
-    }
-
-    public ArrayList<CCuenta> getLstCuenta() {
-        return lstCuenta;
-    }
-
-    public void setLstCuenta(ArrayList<CCuenta> lstCuenta) {
-        this.lstCuenta = lstCuenta;
-    }
- @PostConstruct
+    @PostConstruct
     public void rinit(){
-    cargarCuenta();//Inicializa metodos
+    cargarMenu();//Inicializa metodos
     }
     
-     private void cargarCuenta()
+     private void cargarMenu()
     {
     try{
-        this.lstCuenta=Mcuenta.obtenerCuenta();
+        this.lstMenu=MMenu.obtenerMenu();
         }catch(Exception e){
             System.out.println("e"+e.getMessage().toString());
     }
     }
      
-     public void insertarCuenta() {
+     public void insertarMenu() {
         try {
-            if (Mcuenta.insertarCuenta(objCuenta)) {
+            if (MMenu.insertarMenu(objMenu)) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Exito", new FacesMessage("Datos insertados correctamente"));
-                DefaultRequestContext.getCurrentInstance().execute("wglInsertCuenta.hide()");//esto se debe cambiar deacuerdo a la interfaz del usuario
-                cargarCuenta();
+                DefaultRequestContext.getCurrentInstance().execute("wglInsertMenu.hide()");//esto se debe cambiar deacuerdo a la interfaz del usuario
+                cargarMenu();
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Fracaso", new FacesMessage("Datos no insertados"));
@@ -91,14 +88,14 @@ public class ControladorCuenta {
         }
     }
     
-      public void actualizarCuenta() {
+      public void actualizarMenu() {
         try {
-            if (Mcuenta.modificarCuenta(selCuenta)) {
+            if (MMenu.modificarMenu(selMenu)) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Exito", new FacesMessage("Datos actualizados correctamente"));
-                DefaultRequestContext.getCurrentInstance().execute("wglUpdatCuenta.hide()");
-                this.selCuenta=new CCuenta();
-                cargarCuenta();
+                DefaultRequestContext.getCurrentInstance().execute("wglUpdatCliente.hide()");
+                this.selMenu=new CMenu();
+                cargarMenu();
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Fracaso", new FacesMessage("Datos no actualizados"));
@@ -109,6 +106,5 @@ public class ControladorCuenta {
         }
     }
     
-      
       
 }

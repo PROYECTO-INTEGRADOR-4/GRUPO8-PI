@@ -17,14 +17,24 @@ public class CMenu {
   private int codigoMenu;
   private String descripcionMenu;
   CServicio objservicio;
+  private Date fecha_menu;
 
     public CMenu() {
     }
 
-    public CMenu(int codigoMenu, String descripcionMenu, CServicio objservicio) {
+    public CMenu(int codigoMenu, String descripcionMenu, CServicio objservicio, Date fecha_menu) {
         this.codigoMenu = codigoMenu;
         this.descripcionMenu = descripcionMenu;
         this.objservicio = objservicio;
+        this.fecha_menu=fecha_menu;
+    }
+
+    public Date getFecha_menu() {
+        return fecha_menu;
+    }
+
+    public void setFecha_menu(Date fecha_menu) {
+        this.fecha_menu = fecha_menu;
     }
 
     public int getCodigoMenu() {
