@@ -1,0 +1,70 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog 
+        id="TprecioCreateDlg" 
+        widgetVar="TprecioCreateDialog" 
+        modal="true" 
+        resizable="false" 
+        appendTo="@(body)" 
+        header="Nuevo" 
+        showEffect="fade" 
+        hideEffect="explode"
+        responsive="true">
+
+        <h:form id="TprecioCreateForm">
+            <p:growl id="msgs" showDetail="true" />
+
+            <h:panelGroup id="display">
+                <p:panelGrid 
+                    columns="2" 
+                    styleClass="tblForm">  
+                    <h:outputLabel value="Descripción" for="txtDescripcion" />
+                    <p:inputText
+                        id="txtDescripcion"
+                        value="" 
+                        title="Ingrese descripción"
+                        required="true" 
+                        requiredMessage="Es necesario ingresar la descripción del precio"/>
+                    <h:outputLabel value="Servicio" for="cbxServicio"/>
+                    <p:selectOneMenu 
+                        id="cbxServicio"
+                        value=""
+                        title="Servicios"
+                        rendered="true"
+                        requiredMessage="Es necesario seleccionar un servicio">
+                    </p:selectOneMenu>
+                    <h:outputLabel value="Valor" for="txtValor" />
+                    <p:inputText
+                        id="txtValor"
+                        value="" 
+                        title="Ingrese el valor"
+                        required="true" 
+                        requiredMessage="Es necesario ingresar el valor"/>    
+                </p:panelGrid>
+                <p:separator/>
+
+                <p:commandButton 
+                    value="Cancelar" 
+                    onclick="PF('TprecioCreateDialog').hide()" 
+                    type="reset" 
+                    styleClass="btnRight"/>
+                <p:commandButton 
+                    value="Guardar" 
+                    ajax="false" 
+                    styleClass="btnRight"/>
+
+
+
+            </h:panelGroup>
+
+
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>
+
