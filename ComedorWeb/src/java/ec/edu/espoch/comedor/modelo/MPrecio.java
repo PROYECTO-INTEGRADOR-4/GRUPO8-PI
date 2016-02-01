@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espoch.comedor.modelo;
-
 
 import ec.edu.espoch.comedor.accesodatos.AccesoDatos;
 import ec.edu.espoch.comedor.accesodatos.ConjuntoResultado;
@@ -13,13 +11,14 @@ import ec.edu.espoch.comedor.accesodatos.Parametro;
 import ec.edu.espoch.comedor.entidad.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 /**
  *
  * @author SYSTEMarket-pc
  */
 public class MPrecio {
-    
-     public static boolean insertarPrecio(CPrecio precio) throws Exception {
+
+    public static boolean insertarPrecio(CPrecio precio) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "Select * from fn_insert_tprecio(?)";
@@ -27,7 +26,7 @@ public class MPrecio {
             lstpar.add(new Parametro(1, precio.getPreciomonto()));
             lstpar.add(new Parametro(1, precio.getPreciodescripcion()));
             lstpar.add(new Parametro(1, precio.getObjservicio().getCodigoservicio()));
-           
+
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getBoolean(0) == true) {
@@ -35,14 +34,14 @@ public class MPrecio {
                 }
             }
             rs = null;
-            lstpar= null;
+            lstpar = null;
         } catch (Exception e) {
             throw e;
         }
         return respuesta;
     }
-     
-     public static boolean modificarCuenta(CPrecio precio) throws Exception {
+
+    public static boolean modificarCuenta(CPrecio precio) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "SELECT * from fn_update_tprecio(?,?,?,?)";
@@ -51,18 +50,19 @@ public class MPrecio {
             lstpar.add(new Parametro(3, precio.getPreciomonto()));
             lstpar.add(new Parametro(2, precio.getPreciodescripcion()));
             lstpar.add(new Parametro(4, precio.getObjservicio()));
-            
-           ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-            while(rs.next())
-            {
-                if(rs.getString(0).equals("true"))
-                    respuesta=true;
+
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
             }
         } catch (SQLException e) {
-            throw  e;
+            throw e;
         }
         return respuesta;
-}
+    }
+
     public static boolean elminarCuenta(CPrecio precio) throws Exception {
         boolean respuesta = false;
         try {
@@ -81,11 +81,11 @@ public class MPrecio {
         }
         return respuesta;
     }
-    
+
     public static ArrayList<CPrecio> obtenerCuenta() throws Exception {
         ArrayList<CPrecio> lst = new ArrayList<CPrecio>();
         try {
-             String sql = "SELECT * from fn_select_tcuenta()";
+            String sql = "SELECT * from fn_select_tcuenta()";
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql);
             lst = llenarPrecio(rs);
             rs = null;
@@ -97,13 +97,13 @@ public class MPrecio {
 
     public static ArrayList<CPrecio> llenarPrecio(ConjuntoResultado rs) throws Exception {
         ArrayList<CPrecio> lst = new ArrayList<CPrecio>();
-        CServicio objprecio=new CServicio();
+        CServicio objprecio = new CServicio();
         CPrecio precio = null;
         try {
             while (rs.next()) {
 
                 precio = new CPrecio(rs.getInt(0),
-                        rs.getDouble(1),rs.getString(2),);
+                        rs.getString(1), rs.getDouble(2), objprecio);
 
                 lst.add(precio);
             }
