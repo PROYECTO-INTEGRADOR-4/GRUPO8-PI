@@ -3,17 +3,85 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espoch.comedor.modelo;
 
+import ec.edu.espoch.comedor.accesodatos.AccesoDatos;
+import ec.edu.espoch.comedor.accesodatos.ConjuntoResultado;
+import ec.edu.espoch.comedor.accesodatos.Parametro;
 import ec.edu.espoch.comedor.entidad.CServicio;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author SYSTEMarket-pc
+ * @author Tupac
  */
 public class MServicio {
-    
-    
-    
+
+    //<editor-fold defaultstate="collapsed" desc="Metodo para cargar servicios">
+    public static List<CServicio> cargar() throws Exception {
+        List<CServicio> lstServicios = new ArrayList<>();
+        try {
+            String sql = "SELECT *from fn_select_tservicio();";
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql);
+            while (rs.next()) {
+                CServicio objServicio = new CServicio();
+                objServicio.setCodigoservicio(rs.getInt(0));
+                objServicio.setDescripcionservicio(rs.getString(1));
+                objServicio.setCantidad(rs.getInt(2));
+                objServicio.setDisponible(rs.getInt(3));
+                lstServicios.add(objServicio);
+            }
+            rs = null;
+        } catch (Exception e) {
+            lstServicios.clear();
+            throw e;
+        }
+        return lstServicios;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Caragar servicio por id">
+    public static CServicio cargarPorId(int intServicioId) throws Exception {
+        CServicio objS = new CServicio();
+        try {
+            ArrayList<Parametro> lstParam = new ArrayList<>();
+            String sql = "select *from fn_select_xid_tservicio(?);";
+            lstParam.add(new Parametro(1, intServicioId));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParam);
+            while (rs.next()) {
+                objS.setCodigoservicio(rs.getInt(0));
+                objS.setDescripcionservicio(rs.getString(1));
+                objS.setCantidad(rs.getInt(2));
+                objS.setDisponible(rs.getInt(3));
+            }
+        } catch (Exception e) {
+            objS = null;
+            throw e;
+        }
+        return objS;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Insertar">
+    public static boolean insertar(CServicio objServicio) throws Exception {
+        boolean respuesta = false;
+        try {
+            ArrayList<Parametro> lstParamServicio = new ArrayList<>();
+            String sql = "SELECT fn_insert_tservicio(?,?,?);";
+            lstParamServicio.add(new Parametro(1, objServicio.getDescripcionservicio()));
+            lstParamServicio.add(new Parametro(2, objServicio.getCantidad()));
+            lstParamServicio.add(new Parametro(3, objServicio.getDisponible()));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParamServicio);
+            while (rs.next()) {
+                if (rs.getBoolean(0)) {
+                    respuesta = true;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return respuesta;
+    }
+    //</editor-fold>
 }

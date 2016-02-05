@@ -7,56 +7,45 @@ package ec.edu.espoch.comedor.entidad;
 
 /**
  *
- * @author ANGELA
+ * @author Tupac
  */
 public class CPrecio {
-    
-    private  Integer idprecio;
-    private  String preciodescripcion;
-    private double preciomonto;
-    CServicio objservicio;
+
+    private CServicio objServicio;
+    private CTipo objTipo;
+    private double dblValor;
 
     public CPrecio() {
     }
 
-    public CPrecio(Integer idprecio, String preciodescripcion, double preciomonto, CServicio objservicio) {
-        this.idprecio = idprecio;
-        this.preciodescripcion = preciodescripcion;
-        this.preciomonto = preciomonto;
-        this.objservicio = objservicio;
+    public CPrecio(CServicio objServicio, CTipo objTipo, double dblValor) {
+        this.objServicio = objServicio;
+        this.objTipo = objTipo;
+        this.dblValor = dblValor;
     }
 
-    public Integer getIdprecio() {
-        return idprecio;
+    public CServicio getObjServicio() {
+        return objServicio;
     }
 
-    public void setIdprecio(Integer idprecio) {
-        this.idprecio = idprecio;
+    public void setObjServicio(CServicio objServicio) {
+        this.objServicio = objServicio;
     }
 
-    public String getPreciodescripcion() {
-        return preciodescripcion;
+    public CTipo getObjTipo() {
+        return objTipo;
     }
 
-    public void setPreciodescripcion(String preciodescripcion) {
-        this.preciodescripcion = preciodescripcion;
+    public void setObjTipo(CTipo objTipo) {
+        this.objTipo = objTipo;
     }
 
-    public double getPreciomonto() {
-        return preciomonto;
+    public double getDblValor() {
+        return dblValor;
     }
 
-    public void setPreciomonto(double preciomonto) {
-        this.preciomonto = preciomonto;
+    public void setDblValor(double dblValor) {
+        this.dblValor = dblValor;
     }
 
-    public CServicio getObjservicio() {
-        return objservicio;
-    }
-
-    public void setObjservicio(CServicio objservicio) {
-        this.objservicio = objservicio;
-    }
-    
-    
 }

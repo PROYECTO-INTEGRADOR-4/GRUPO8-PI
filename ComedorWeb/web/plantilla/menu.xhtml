@@ -6,23 +6,15 @@
 
     <div class="ui-fluid">
 
-        <p:panelGrid layout="grid" columns="1" style="margin-top:20px">
-            <h:form>
+        <p:panelGrid 
+            layout="grid" 
+            columns="1" 
+            style="margin-top:20px"   
+            styleClass="ui-panelgrid-blank">
+            <h:form id="menuForm">
+                <p:panelMenu model="#{controladorMenuView.model}"/>
                 <p:panelMenu>
-                    <p:submenu label="Autenticación">
-                        <p:menuitem 
-                            value="Iniciar Sesión" 
-                            icon="ui-icon-key" 
-                            oncomplete="PF('dlgLogin').show()"
-                            update="dialogLogin"
-                            />
-                        <p:menuitem value="Update" url="#" icon="ui-icon-arrowrefresh-1-w"/>
-                    </p:submenu>
-                    <p:submenu label="Non-Ajax Menuitem">
-                        <p:menuitem value="Delete" url="#" icon="ui-icon-close"/>
-                    </p:submenu>
-                    <p:separator />
-                    <p:submenu label="Navigations" >
+                    <p:submenu label="Informes" >
                         <p:submenu label="Links" icon="ui-icon-extlink">
                             <p:submenu label="PrimeFaces" icon="ui-icon-heart">
                                 <p:menuitem value="Home" url="http://www.primefaces.org" icon="ui-icon-home" />
@@ -37,5 +29,7 @@
             </h:form>
         </p:panelGrid>
     </div>
+
+
     <ui:include src="../login.xhtml"/>
 </ui:composition>

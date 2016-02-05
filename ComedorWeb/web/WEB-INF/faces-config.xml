@@ -9,5 +9,29 @@
         <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorUserLogin</managed-bean-class> 
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-
+    <managed-bean>
+        <managed-bean-name>controladorServicio</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorServicio</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>controladorPrecio</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorPrecio</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+     <managed-bean>
+        <managed-bean-name>controladorMenuView</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorMenuView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>controladorFecha</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorFecha</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>resizableView</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.resizableView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

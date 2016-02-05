@@ -19,6 +19,7 @@ import wsInfoGeneral.ArrayOfInstitucionEstudiante;
 import wsInfoGeneral.ArrayOfUnidadAcademica;
 import wsSeguridad.ArrayOfRolCarrera;
 import wsSeguridad.RolCarrera;
+import wsWSInterop.Empleado;
 
 /**
  *
@@ -53,15 +54,15 @@ public class Principal {
     }
 
     public static void main(String arg[]) {
-        /* 
-         ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
 
-         List<RolCarrera> rol = carrera.getRolCarrera();
-         rol.stream().forEach((Rol) -> {
-         System.out.println("Carrera: " + Rol.getCodigoCarrera());
-         System.out.println("Rol: " + Rol.getNombreRol());
-         });
-        
+        // ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
+        List<wsWSInterop.AdministrativoJefe> objE = getAdministrativosJefe();
+        objE.stream().forEach((Empleado) -> {
+            System.out.println("\nCedula: " + Empleado.getStrCedula());
+            System.out.println("Nombre: " + Empleado.getStrNombres());
+            System.out.println("Rol: " + Empleado.getStrCargo());
+        });
+        /* 
          ArrayOfInstitucionEstudiante estudiante = getInstitucionEstudiante("180419297-7");
          List<InstitucionEstudiante> datosEstudiante = estudiante.getInstitucionEstudiante();
          datosEstudiante.stream().forEach((datosE) -> {
@@ -114,10 +115,11 @@ public class Principal {
          System.out.println("Cedula: " + objPersona.getCedula());
          }
          */
-
-        Persona objPerson = getDatosUsuarioCarrera("EIS", "172292236-4");
-        System.out.println("\nNombre: " + objPerson.getNombres());
-        System.out.println("\nApellido: " + objPerson.getApellidos());
+        /*
+         Persona objPerson = getDatosUsuarioCarrera("EIS", "172292236-4");
+         System.out.println("\nNombre: " + objPerson.getNombres());
+         System.out.println("\nApellido: " + objPerson.getApellidos());
+         */
     }
 
     private static Estudiante getDatosCompletosEstudiante(java.lang.String strCedula) {
@@ -158,6 +160,45 @@ public class Principal {
 
         return port.getDatosUsuarioCarrera(codCarrera, cedula);
 
+    }
+
+    private static java.util.List<wsWSInterop.Empleado> getEmpleados() {
+        wsWSInterop.WSInterop service = new wsWSInterop.WSInterop();
+        wsWSInterop.WSInteropSoap port = service.getWSInteropSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getEmpleados();
+    }
+
+    private static java.util.List<wsWSInterop.Administrativo> getAdministrativos() {
+        wsWSInterop.WSInterop service = new wsWSInterop.WSInterop();
+        wsWSInterop.WSInteropSoap port = service.getWSInteropSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getAdministrativos();
+    }
+
+    private static java.util.List<wsWSInterop.AdministrativoJefe> getAdministrativosJefe() {
+        wsWSInterop.WSInterop service = new wsWSInterop.WSInterop();
+        wsWSInterop.WSInteropSoap port = service.getWSInteropSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getAdministrativosJefe();
     }
 
 }

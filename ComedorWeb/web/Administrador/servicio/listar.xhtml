@@ -1,0 +1,91 @@
+<ui:composition  
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/plantilla/templateAdmin.xhtml">
+    <ui:define name="title">
+        <h:outputText value="Servicio"/>
+    </ui:define>
+
+    <ui:define name="body" >
+        <h:form id="TservicioListForm">
+            <p:panel header="Servicio" >
+                <p:dataTable 
+                    id="datalist" 
+                    value="#{controladorServicio.lstServicios}"
+                    var="item"
+                    selectionMode="single"
+                    selection="#{controladorServicio.selObjServicio}"
+                    paginator="true"
+                    rowKey="#{item.codigoservicio}"
+                    reflow="true" 
+                    rows="10"
+                    rowsPerPageTemplate="10,20,30,40,50"
+
+                    widgetVar="dataTable"
+                    filteredValue="#{controladorServicio.filteredServicios}"
+                    emptyMessage="No se encontrò ningun servicio">
+
+                    <f:facet name="header">
+                        <p:commandButton 
+                            id="createButton" 
+                            icon="ui-icon-plusthick"   
+                            value="Nuevo" 
+                            update=":TservicioCreateForm"
+                            oncomplete="PF('TservicioCreateDialog').show()">
+                            <f:setPropertyActionListener 
+                                value="#{item}"                                                             
+                                target="#{controladorServicio.selObjServicio}"/>
+                        </p:commandButton>                       
+                    </f:facet>
+                    <f:facet name="header">
+                        <p:outputPanel style="margin-top: 10px">
+                            <h:form>
+                                <img src="../../resources/images/search104.png" width="16" height="16" alt="search104"/>
+                            </h:form>
+                            <h:outputText/>
+                            <p:inputText 
+                                id="globalFilter" 
+                                onkeyup="PF('dataTable').filter()" 
+                                style="width:150px" 
+                                placeholder="Buscar"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:ajax 
+                        event="rowSelect"  
+                        update="createButton"/>
+                    <p:ajax 
+                        event="rowUnselect" 
+                        update="createButton"/>
+
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{item.descripcionservicio}"/>
+                    </p:column>
+
+                    <p:column headerText="Cantidad Máxima">
+                        <h:outputText value="#{item.cantidad}"/>
+                    </p:column>
+
+                    <p:column headerText="Cantidad Disponible">
+                        <h:outputText value="#{item.disponible}"/>
+                    </p:column>
+
+                    <p:column headerText="Acciones">
+                        <f:facet name="header">
+                        </f:facet>
+                        <h:outputText />
+                    </p:column>
+
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+        <ui:include src="crear.xhtml"/>
+    </ui:define>
+</ui:composition>
+
+
+
+

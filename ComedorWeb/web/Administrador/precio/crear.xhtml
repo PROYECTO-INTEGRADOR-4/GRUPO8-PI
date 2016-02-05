@@ -1,0 +1,71 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dialog 
+        id="TprecioCreateDlg" 
+        widgetVar="TprecioCreateDialog" 
+        modal="true" 
+        resizable="false" 
+        appendTo="@(body)" 
+        header="Nuevo" 
+        showEffect="fade" 
+        hideEffect="explode"
+        responsive="true">
+
+        <h:form id="TprecioCreateForm">
+            <p:growl id="msgs" showDetail="true" />
+
+            <h:panelGroup id="display">
+                <p:panelGrid 
+                    columns="2" 
+                    rendered="#{controladorPrecio.objCPrecio!=null}"
+                    styleClass="tblForm">  
+                    <h:outputLabel value="Servicio" for="cbxServicio"/>
+                    <p:selectOneMenu 
+                        id="cbxServicio"
+                        value="#{controladorPrecio.objCPrecio.objServicio.codigoservicio}"
+                        title="Servicios"
+                        rendered="true"
+                        requiredMessage="Es necesario seleccionar un servicio">
+                        <f:selectItems value="#{itemsBean.selectOneItemsServicio}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Para" for="cbxTipo"/>
+                    <p:selectOneMenu 
+                        id="cbxTipo"
+                        value="#{controladorPrecio.objCPrecio.objTipo.intTipoId}"
+                        title="Servicios"
+                        rendered="true"
+                        requiredMessage="Es necesario seleccionar un servicio">
+                        <f:selectItems value="#{itemsBean.selectOneItemsTipo}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="Valor" for="txtValor" />
+                    <p:inputText
+                        id="txtValor"
+                        value="#{controladorPrecio.objCPrecio.dblValor}" 
+                        title="Ingrese el valor"
+                        required="true" 
+                        requiredMessage="Es necesario ingresar el valor"/>    
+                </p:panelGrid>
+                <p:separator/>
+                <p:commandButton 
+                    value="Cancelar" 
+                    onclick="PF('TprecioCreateDialog').hide()" 
+                    type="reset" 
+                    styleClass="btnRight"/>
+                <p:commandButton 
+                    value="Guardar" 
+                    actionListener="#{controladorPrecio.insertar()}"
+                    update="display,:TprecioListForm:datalist,:msgs" 
+                    styleClass="btnRight"/>
+            </h:panelGroup>
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>
+

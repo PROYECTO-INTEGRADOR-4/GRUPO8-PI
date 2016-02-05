@@ -329,7 +329,7 @@ public class LoginFilter implements Filter {
          */
         //URL's permitidas sin sesion
         Boolean protegido = false;
-        String[] paginas = {"index.xhtml", "login.xhtml", "template.xhtml", "login_1.xhtml"};
+        String[] paginas = {"index.xhtml", "login.xhtml", "template.xhtml", "prueba.xhtml"};
         for (String pagina : paginas) {
             if (urlStr.contains(pagina)) {
                 protegido = true;

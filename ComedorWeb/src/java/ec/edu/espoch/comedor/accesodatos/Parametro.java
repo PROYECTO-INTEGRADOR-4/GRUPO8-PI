@@ -6,7 +6,7 @@ package ec.edu.espoch.comedor.accesodatos;
  */
 public class Parametro {
 
-      private  int posicion;
+    private int posicion;
     private Object valor;
     private int tipo;
 
@@ -15,12 +15,13 @@ public class Parametro {
         this.valor = valor;
         this.tipo = tipo;
     }
- public Parametro(int posicion, Object valor) {
+
+    public Parametro(int posicion, Object valor) {
         this.posicion = posicion;
         this.valor = valor;
-      
+
     }
-    
+
     public int getPosicion() {
         return posicion;
     }
@@ -45,4 +46,3 @@ public class Parametro {
         this.tipo = tipo;
     }
 }
-
