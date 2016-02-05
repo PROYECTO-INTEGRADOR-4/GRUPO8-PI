@@ -125,21 +125,15 @@ public class LoginFilter implements Filter {
                     if (paginasUsuarioNormal(urlStr, loginBean)) {
                         chain.doFilter(request, response);
                     } else {
-                        if (paginasSecretaria(urlStr, loginBean)) {
-                            chain.doFilter(request, response);
+
+                        if (redireccionarAdmin(urlStr, loginBean)) {
+                            res.sendRedirect(req.getContextPath() + "/faces/Administrador/bienvenida/inicio.xhtml");
                         } else {
-                            if (redireccionarAdmin(urlStr, loginBean)) {
-                                res.sendRedirect(req.getContextPath() + "/faces/Administrador/bienvenida/inicio.xhtml");
-                            } else {
-                                if (redireccionarUsuarioNormal(urlStr, loginBean)) {
-                                    res.sendRedirect(req.getContextPath() + "/faces/UsuarioNormal/bienvenida/inicio.xhtml");
-                                } else {
-                                    if (redireccionarSecretaria(urlStr, loginBean)) {
-                                        res.sendRedirect(req.getContextPath() + "/faces/Secretaria/bienvenida/inicio.xhtml");
-                                    }
-                                }
+                            if (redireccionarUsuarioNormal(urlStr, loginBean)) {
+                                res.sendRedirect(req.getContextPath() + "/faces/UsuarioNormal/bienvenida/inicio.xhtml");
                             }
                         }
+
                     }
                 }
             }
@@ -277,36 +271,8 @@ public class LoginFilter implements Filter {
     private Boolean paginasUsuarioNormal(String urlStr, ControladorUserLogin loginBean) {
         Boolean respuesta = false;
         try {
-            if (urlStr.contains("usuarionormal") || loginBean.getRolCarrera().getNombreRol().equals("Administrador")
-                    || loginBean.getRolCarrera().getNombreRol().equals("Secretaria")) {
+            if (urlStr.contains("usuarionormal") || loginBean.getRolCarrera().getNombreRol().equals("Administrador")) {
                 System.out.println("usuario normal!!");
-                respuesta = true;
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return respuesta;
-    }
-
-    private Boolean redireccionarSecretaria(String urlStr, ControladorUserLogin loginBean) {
-        Boolean respuesta = false;
-        try {
-            if (urlStr.contains("secretaria") && loginBean.getRolCarrera().getNombreRol().equals("Administrador")) {
-                System.out.println("secretaria!!");
-                respuesta = true;
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return respuesta;
-    }
-
-    private Boolean paginasSecretaria(String urlStr, ControladorUserLogin loginBean) {
-        Boolean respuesta = false;
-        try {
-            if (urlStr.contains("secretaria") && loginBean.getRolCarrera().getNombreRol().equals("Secretaria")
-                    || urlStr.contains("secretaria") && loginBean.getRolCarrera().getNombreRol().equals("Administrador")) {
-                System.out.println("secretaria!!");
                 respuesta = true;
             }
         } catch (Exception e) {

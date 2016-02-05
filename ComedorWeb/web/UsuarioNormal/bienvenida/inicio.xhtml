@@ -1,13 +1,33 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Cliente</title>
-    </h:head>
-    <h:body>
-        <ui:include src="../../plantilla/templateCliente.xhtml"/>
-    </h:body>
-</html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="/plantilla/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="Inicio"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <ui:include src="../../plantilla/banner.xhtml"/>
+        <div class="ui-fluid">
+            <p:panel 
+                style="margin-top:20px;" >
+                <p:panelGrid 
+                    columns="1" 
+                    layout="grid" 
+                    styleClass="ui-panelgrid-blank"
+                    style="text-align: justify">
+                    <h:outputText
+                        style="font: cursive;  font-size: 24px"
+                        value="Bienvenid@ #{controladorUserLogin.objUserLogin.apellidos} #{controladorUserLogin.objUserLogin.nombres}"/>
+                    <h:outputText
+                        value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+                        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
+                        but given to ruthless violence whenever anything stands against the good of the family." />
+                </p:panelGrid>
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>
 

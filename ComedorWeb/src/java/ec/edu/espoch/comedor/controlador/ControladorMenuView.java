@@ -29,6 +29,8 @@ public class ControladorMenuView {
     private Persona objUser;
     private RolCarrera objRolCarrera;
     private ArrayList<CServicio> lstS;
+    private final HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    private final ControladorUserLogin loginBean = (ControladorUserLogin) session.getAttribute("controladorUserLogin");
 
     public ControladorMenuView() {
         this.lstS = new ArrayList<>();
@@ -45,18 +47,24 @@ public class ControladorMenuView {
     }
 
     public void menus() {
-        cargarDatosUsuario();
-        if (objUser != null) {
-            menuAdmin();
+
+        if (loginBean.estaLogeado() == true) {
+            objUser = loginBean.getObjUserLogin();
+            objRolCarrera = loginBean.getRolCarrera();
+            if (objRolCarrera.getNombreRol().equals("Administrador")) {
+                menuAdmin();
+            } else {
+                menuCliente();
+            }
         } else {
             menuPrincipal();
         }
+
     }
 
     public void menuAdmin() {
         model = new DefaultMenuModel();
         //Primer submenu
-        cargarDatosUsuario();
         DefaultSubMenu primerSubmenu = new DefaultSubMenu(objUser.getApellidos() + " " + objUser.getNombres());
         DefaultMenuItem item = new DefaultMenuItem("Inicio");
         item.setIcon("ui-icon-home");
@@ -66,7 +74,7 @@ public class ControladorMenuView {
 
         item = new DefaultMenuItem("Mis Datos");
         item.setIcon("ui-icon-person");
-        item.setCommand("#{menuView.delete}");
+        item.setCommand("#");
         item.setAjax(false);
         primerSubmenu.addElement(item);
 
@@ -109,10 +117,47 @@ public class ControladorMenuView {
         model.addElement(segundoSubmenu);
     }
 
+    public void menuCliente() {
+        model = new DefaultMenuModel();
+
+        DefaultSubMenu primerSubmenu = new DefaultSubMenu();
+        primerSubmenu.setLabel(objUser.getApellidos() + " " + objUser.getNombres());
+
+        DefaultMenuItem item = new DefaultMenuItem("Inicio");
+        item.setIcon("ui-icon-home");
+        item.setOutcome("/UsuarioNormal/bienvenida/inicio.xhtml");
+        primerSubmenu.addElement(item);
+
+        item = new DefaultMenuItem("Mis Datos");
+        item.setIcon("ui-icon-person");
+        item.setCommand("#");
+        item.setAjax(false);
+        primerSubmenu.addElement(item);
+
+        item = new DefaultMenuItem("Salir");
+        item.setIcon("ui-icon-power");
+        item.setCommand("#{controladorUserLogin.logout}");
+        item.setOncomplete("logout(xhr, status, args)");
+        primerSubmenu.addElement(item);
+
+        model.addElement(primerSubmenu);
+
+        DefaultSubMenu segundoSubmenu = new DefaultSubMenu("Servicios");
+        cargarS();
+        for (CServicio objS : lstS) {
+            item = new DefaultMenuItem(objS.getDescripcionservicio());
+            item.setIcon("");
+            item.setOutcome("/UsuarioNormal/menu/listar.xhtml");
+            item.setParam("id", objS.getCodigoservicio());
+            item.setParam("servicio", objS.getDescripcionservicio());
+            segundoSubmenu.addElement(item);
+        }
+        model.addElement(segundoSubmenu);
+    }
+
     public void menuPrincipal() {
         model = new DefaultMenuModel();
         //Primer submenu
-        cargarDatosUsuario();
         DefaultSubMenu primerSubmenu = new DefaultSubMenu("Autenticación");
         DefaultMenuItem item = new DefaultMenuItem("Iniciar Sesión");
         item.setIcon("ui-icon-key");
@@ -121,7 +166,6 @@ public class ControladorMenuView {
         primerSubmenu.addElement(item);
 
         //Segundo submenu
-        cargarS();
         DefaultSubMenu segundoSubmenu = new DefaultSubMenu("Nosotros");
 
         item = new DefaultMenuItem("Misión");
@@ -142,21 +186,6 @@ public class ControladorMenuView {
         try {
             lstS = (ArrayList<CServicio>) MServicio.cargar();
         } catch (Exception e) {
-        }
-    }
-
-    private void cargarDatosUsuario() {
-        try {
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            ControladorUserLogin loginBean = (ControladorUserLogin) session.getAttribute("controladorUserLogin");
-            if (loginBean != null) {
-                objUser = loginBean.getObjUserLogin();
-                objRolCarrera = loginBean.getRolCarrera();
-            } else {
-                objUser = null;
-            }
-        } catch (Exception e) {
-
         }
     }
 

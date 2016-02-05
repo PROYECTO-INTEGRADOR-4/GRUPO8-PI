@@ -5,7 +5,9 @@
  */
 package ec.edu.espoch.comedor.controlador;
 
+import ec.edu.espoch.comedor.modelo.mLogin;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -90,47 +92,37 @@ public class ControladorUserLogin implements Serializable {
     public void login(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
-        /*
-         if (username != null && password != null) {
-         ArrayList<RolCarrera> lstRoles;
-         lstRoles = new ArrayList<>();
-         lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
-         if (lstRoles.size() > 0) {
-         logeado = true;
-         rolCarrera = lstRoles.get(0);
-         this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
-         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
-         } else {
-         logeado = false;
-         message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
-         }
-         }
-         */
 
-        //Por el momento para administrador
         if (username != null && password != null) {
-            //  ArrayList<RolCarrera> lstRoles;
-            //lstRoles = new ArrayList<>();
-            //lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
-            if (username.equals("0200949113") && password.equals("0200949113")) {
+            ArrayList<RolCarrera> lstRoles;
+            lstRoles = new ArrayList<>();
+            lstRoles = (ArrayList<RolCarrera>) mLogin.loginUsuario(username, password);
+            if (lstRoles.size() > 0) {
                 logeado = true;
-                // rolCarrera = lstRoles.get(0);
-                //this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
-                this.rolCarrera.setNombreRol("Administrador");
-                this.objUserLogin.setCedula(username);
-                this.objUserLogin.setApellidos("Sanchez");
-                this.objUserLogin.setNombres("Zoila");
+                rolCarrera = lstRoles.get(0);
+                this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
             } else {
-                logeado = false;
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
+                // //Por el momento para administrador
+                if (username.equals("0200949113") && password.equals("0200949113")) {
+                    logeado = true;
+                    this.rolCarrera.setNombreRol("Administrador");
+                    this.objUserLogin.setCedula(username);
+                    this.objUserLogin.setApellidos("Sanchez");
+                    this.objUserLogin.setNombres("Zoila");
+                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
+                } else {
+                    logeado = false;
+                    message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
+                }
             }
+
         }
+
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("logeado", logeado);
         if (logeado) {
             redireccionarPaginas(context);
-            //context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
         }
     }
 
@@ -138,9 +130,6 @@ public class ControladorUserLogin implements Serializable {
         switch (this.rolCarrera.getNombreRol()) {
             case "Administrador":
                 context.addCallbackParam("view", "Administrador/bienvenida/inicio.xhtml");
-                break;
-            case "Secretaria":
-                context.addCallbackParam("view", "Secretaria/bienvenida/inicio.xhtml");
                 break;
             default:
                 context.addCallbackParam("view", "UsuarioNormal/bienvenida/inicio.xhtml");
@@ -152,5 +141,6 @@ public class ControladorUserLogin implements Serializable {
                 .getExternalContext().getSession(false);
         session.invalidate();
         logeado = false;
+        objUserLogin = null;
     }
 }

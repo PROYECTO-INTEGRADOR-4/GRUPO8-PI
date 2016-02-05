@@ -1,0 +1,102 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog 
+        id="TdesayunoCreateDlg" 
+        widgetVar="TdesayunoCreateDialog" 
+        modal="true" 
+        resizable="false" 
+        appendTo="@(body)" 
+        header="Nuevo" 
+        showEffect="fade" 
+        hideEffect="explode"
+        responsive="true">
+
+        <h:form id="TdesayunoCreateForm">
+            <p:growl id="msgs" showDetail="false" />
+
+            <h:panelGroup id="display">
+                <p:panelGrid 
+                    columns="2" 
+                    styleClass="tblForm">  
+
+                    <h:outputLabel value="Descripción " for="txtDescripción" />
+                    <p:inputTextarea
+                        id="txtDocumento"
+                        value="" 
+                        label="Examinar"
+                        required="true" 
+                        requiredMessage="Es necesario seleccionar un desayuno"/>
+
+                    <h:outputLabel value="Fecha " for="txtFecha" />
+                    <p:calendar 
+                        id="txtFecha"
+                        locale="es"
+                        mindate="#{controladorFecha.fecha}"
+                        pattern="dd/MM/yyyy" 
+                        value="#{controladorFecha.fecha}" 
+                        title="Fecha" 
+                        required="true" 
+                        requiredMessage="Es necesario ingresar la fecha" 
+                        showOn="button">
+                        <script>
+                            PrimeFaces.locales['es'] = {
+                                closeText: 'Cerrar',
+                                prevText: 'Anterior',
+                                nextText: 'Siguiente',
+                                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                                dayNamesMin: ['D', 'L', 'M', 'Mi', 'J', 'V', 'S'],
+                                weekHeader: 'Semana',
+                                firstDay: 1,
+                                isRTL: false,
+                                showMonthAfterYear: false,
+                                yearSuffix: '',
+                                timeOnlyTitle: 'Sólo hora',
+                                timeText: 'Tiempo',
+                                hourText: 'Hora',
+                                minuteText: 'Minuto',
+                                secondText: 'Segundo',
+                                currentText: 'Fecha actual',
+                                ampm: false,
+                                month: 'Mes',
+                                week: 'Semana',
+                                day: 'Día',
+                                allDayText: 'Todo el día'
+                            };</script>
+
+                    </p:calendar>
+
+
+
+
+
+                </p:panelGrid>
+                <p:separator/>
+
+                <p:commandButton 
+                    value="Cancelar" 
+                    onclick="PF('TdesayunoCreateDialog').hide()" 
+                    type="reset" 
+                    styleClass="btnRight"/>
+                <p:commandButton 
+                    value="Guardar" 
+                    styleClass="btnRight"
+                    update="display,:TdesayunoListForm:datalist,:msgs" />
+
+
+
+            </h:panelGroup>
+
+
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>
+
