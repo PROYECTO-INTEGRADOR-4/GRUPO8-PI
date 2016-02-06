@@ -29,8 +29,6 @@ public class MServicio {
                 CServicio objServicio = new CServicio();
                 objServicio.setCodigoservicio(rs.getInt(0));
                 objServicio.setDescripcionservicio(rs.getString(1));
-                objServicio.setCantidad(rs.getInt(2));
-                objServicio.setDisponible(rs.getInt(3));
                 lstServicios.add(objServicio);
             }
             rs = null;
@@ -53,8 +51,6 @@ public class MServicio {
             while (rs.next()) {
                 objS.setCodigoservicio(rs.getInt(0));
                 objS.setDescripcionservicio(rs.getString(1));
-                objS.setCantidad(rs.getInt(2));
-                objS.setDisponible(rs.getInt(3));
             }
         } catch (Exception e) {
             objS = null;
@@ -71,8 +67,6 @@ public class MServicio {
             ArrayList<Parametro> lstParamServicio = new ArrayList<>();
             String sql = "SELECT fn_insert_tservicio(?,?,?);";
             lstParamServicio.add(new Parametro(1, objServicio.getDescripcionservicio()));
-            lstParamServicio.add(new Parametro(2, objServicio.getCantidad()));
-            lstParamServicio.add(new Parametro(3, objServicio.getDisponible()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParamServicio);
             while (rs.next()) {
                 if (rs.getBoolean(0)) {
@@ -85,41 +79,41 @@ public class MServicio {
         return respuesta;
     }
     //</editor-fold>
-    
-    
-     public static boolean elimninarServicio(int codigo) throws Exception {
+
+    public static boolean elimninarServicio(int codigo) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "select * from fn_delete_tservicio(?)";
             ArrayList<Parametro> lstpar = new ArrayList<Parametro>();
             lstpar.add(new Parametro(1, codigo));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-            while(rs.next())
-            {
-                if(rs.getString(0).equals("true"))
-                    respuesta=true;
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
             }
 
         } catch (SQLException e) {
-            throw  e;
+            throw e;
         }
         return respuesta;
     }
- public static boolean modificarServicio(CServicio servicio) throws Exception {
+
+    public static boolean modificarServicio(CServicio servicio) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "select *from fn_update_tservicio(?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<Parametro>();
-            lstpar.add(new Parametro(1, servicio.getCantidad()));
+            lstpar.add(new Parametro(1, servicio.getCodigoservicio()));
             lstpar.add(new Parametro(1, servicio.getDescripcionservicio()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-            while(rs.next())
-            {
-                if(rs.getString(0).equals("true"))
-                    respuesta=true;
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
             }
         } catch (SQLException e) {
-            throw  e;
+            throw e;
         }
         return respuesta;
     }

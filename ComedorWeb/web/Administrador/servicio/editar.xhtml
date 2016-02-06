@@ -9,77 +9,39 @@
     <ui:composition>
 
         <p:dialog 
-            id="TdocumentoEditDlg" 
-            widgetVar="TdocumentoEditDialog" 
+            id="TservicioEditDlg" 
+            widgetVar="TservicioEditDialog" 
             modal="true" 
             resizable="false" 
             appendTo="@(body)" 
             header="Modificar" 
             showEffect="fade" 
             hideEffect="explode">
-            <h:form id="TdocumentoEditForm">
+            <h:form id="TservicioEditForm">
+                <p:growl id="msgs" showDetail="true" />
                 <h:panelGroup id="display">
                     <p:panelGrid 
-                        columns="3" 
-                        rendered="#{controladorDocument.selObjDocumento != null}" 
-                        styleClass="tblForm"
-                        style="width: auto">
-
-                        <h:outputLabel value="Carpeta: " for="txtCarpeta" />
-                        <p:selectOneMenu 
-                            id="txtCarpeta" 
-                            value="#{controladorDocument.selObjDocumento.objTipoDocumento.intIdTipoDocumento}" 
+                        columns="2" 
+                        rendered="#{controladorServicio.selObjServicio!=null}"
+                        styleClass="tblForm">  
+                        <h:outputLabel value="Descripción" for="txtDescripcion" />
+                        <p:inputText
+                            id="txtDescripcion"
+                            value="#{controladorServicio.selObjServicio.descripcionservicio}" 
+                            title="Ingrese descripción"
                             required="true" 
-                            requiredMessage="Es necesario seleccionar una carpeta" 
-                            style="width:125px">
-                            <f:selectItems value="#{itemsBean.selectOneItemsTipoDocumento}"/>
-                        </p:selectOneMenu>
-
-                        <p:commandButton 
-                            id="createButton" 
-                            icon="fa fa-plus"  
-                            value="Nuevo" 
-                            title="Nueva Carpeta"
-                            update=":TtipodocumentoCreateForm" 
-                            oncomplete="PF('TtipodocumentoCreateDialog').show()"
-                            style="float: left; margin-left: -8px; margin-bottom: 12px">
-                            <f:setPropertyActionListener 
-                                value="#{item}" 
-                                target="#{controladorTipoDocumento.selObjTipoDocumento}"/>
-                        </p:commandButton> 
-
-                        <h:outputLabel value="Acceso: " for="txtAcceso" />
-                        <p:selectOneRadio
-                            id="menu" 
-                            value="#{controladorDocument.selObjDocumento.objClase.intIdClase}" 
-                            layout="grid" 
-                            columns="1"
-                            validatorMessage="Es necesario seleccionar el acceso">
-                            <p:ajax 
-                                process="@this" 
-                                update=":TdocumentoAsignarForm:checkboxDT" 
-                                listener="#{controladorUser.onRadioSelect(controladorDocument.selObjDocumento.objClase.intIdClase)}"/>
-                            <f:selectItems
-                                value="#{itemsBean.selectOneItemsClaseDocumento}"/>          
-                        </p:selectOneRadio>
-
-                        <p:dialog 
-                            modal="true"
-                            appendTo="@(body)" 
-                            resizable="false" widgetVar="dlg" header="Values" showEffect="clip">
-                            <h:outputText value="City:" />
-                            <h:outputText value="#{controladorDocument.selObjDocumento.objClase.intIdClase}" />
-                        </p:dialog>
-                        <h:outputLabel value=" " for="asignarButton" />
+                            requiredMessage="Es necesario ingresar la descripción del servicio"/>
                     </p:panelGrid>
-
                     <p:separator/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('TdocumentoEditDialog').hide()" styleClass="btnRight"/>
                     <p:commandButton 
-                        actionListener="#{controladorDocument.actualizarDocumento()}" 
+                        value="Cancelar" 
+                        onclick="PF('TservicioEditDialog').hide()" 
+                        type="reset" 
+                        styleClass="btnRight"/>
+                    <p:commandButton 
                         value="Guardar" 
-                        update="display,:TdocumentoListForm:datalist,:growl" 
-                        oncomplete="handleSubmit(args, 'TdocumentoEditDialog');" 
+                        actionListener="#{controladorServicio.actualizar()}"
+                        update="display,:TservicioListForm:datalist,:msgs" 
                         styleClass="btnRight"/>
                 </h:panelGroup>
             </h:form>

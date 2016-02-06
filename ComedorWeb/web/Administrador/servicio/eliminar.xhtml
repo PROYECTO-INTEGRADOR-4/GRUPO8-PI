@@ -19,12 +19,23 @@
             hideEffect="explode">
             <h:form id="TservicioDeleteForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{controladorServicio.selObjServicio != null}" styleClass="tblForm">                        
-                        <h:outputText value="¿Está seguro que desea eliminar el servicio #{contservicioadorServicio.selObjServicio.strDescripcionServicio}?"/>
+                    <p:panelGrid 
+                        columns="2" 
+                        rendered="#{controladorServicio.selObjServicio != null}" 
+                        styleClass="tblForm">                        
+                        <h:outputText 
+                            value="¿Está seguro que desea eliminar el servicio #{controladorServicio.selObjServicio.descripcionservicio}?"/>
                     </p:panelGrid>
                     <p:separator/>
-                    <p:commandButton value="No" onclick="PF('TservicioDeleteDialog').hide()" styleClass="btnRight"/>
-                    <p:commandButton actionListener="#{controladorServicio.eliminarServicio()}" value="Si" update="display,:TservicioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TservicioDeleteDialog');" styleClass="btnRight"/>
+                    <p:commandButton 
+                        value="No" 
+                        onclick="PF('TservicioDeleteDialog').hide()" 
+                        styleClass="btnRight"/>
+                    <p:commandButton 
+                        actionListener="#{controladorServicio.eliminar()}" 
+                        value="Si" update="display,:TservicioListForm:datalist,:msgs" 
+                        oncomplete="handleSubmit(args, 'TservicioDeleteDialog');" 
+                        styleClass="btnRight"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

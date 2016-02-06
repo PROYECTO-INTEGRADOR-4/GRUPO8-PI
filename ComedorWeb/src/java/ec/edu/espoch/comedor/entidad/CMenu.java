@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ec.edu.espoch.comedor.entidad;
 //import ec.edu.espoch.comedor.accesodatos.*;
 
@@ -14,56 +13,92 @@ import java.util.Date;
  * @author SYSTEMarket-pc
  */
 public class CMenu {
-  private int codigoMenu;
-  private String descripcionMenu;
-  CServicio objservicio;
-  private Date fecha_menu;
+
+    private int intMenuId;
+    private CServicio objServicio;
+    private Date dtFechaIngreso;
+    private String strMenuDescripcion;
+    private int intCantMax;
+    private int intCantDisponible;
+    private Date dtFechaServir;
+    private CEstado objEstado;
 
     public CMenu() {
     }
 
-    public CMenu(int codigoMenu, String descripcionMenu, CServicio objservicio, Date fecha_menu) {
-        this.codigoMenu = codigoMenu;
-        this.descripcionMenu = descripcionMenu;
-        this.objservicio = objservicio;
-        this.fecha_menu=fecha_menu;
+    public CMenu(int intMenuId, String strMenuDescripcion, Date dtFechaServir, Date dtFechaIngreso, int intCantMax, int intCantDisponible, CServicio objServicio, CEstado objEstado) {
+        this.intMenuId = intMenuId;
+        this.strMenuDescripcion = strMenuDescripcion;
+        this.dtFechaServir = dtFechaServir;
+        this.dtFechaIngreso = dtFechaIngreso;
+        this.intCantMax = intCantMax;
+        this.intCantDisponible = intCantDisponible;
+        this.objServicio = objServicio;
+        this.objEstado = objEstado;
     }
 
-    public Date getFecha_menu() {
-        return fecha_menu;
+    public int getIntMenuId() {
+        return intMenuId;
     }
 
-    public void setFecha_menu(Date fecha_menu) {
-        this.fecha_menu = fecha_menu;
+    public void setIntMenuId(int intMenuId) {
+        this.intMenuId = intMenuId;
     }
 
-    public int getCodigoMenu() {
-        return codigoMenu;
+    public String getStrMenuDescripcion() {
+        return strMenuDescripcion;
     }
 
-    public void setCodigoMenu(int codigoMenu) {
-        this.codigoMenu = codigoMenu;
+    public void setStrMenuDescripcion(String strMenuDescripcion) {
+        this.strMenuDescripcion = strMenuDescripcion;
     }
 
-    public String getDescripcionMenu() {
-        return descripcionMenu;
+    public Date getDtFechaServir() {
+        return dtFechaServir;
     }
 
-    public void setDescripcionMenu(String descripcionMenu) {
-        this.descripcionMenu = descripcionMenu;
+    public void setDtFechaServir(Date dtFechaServir) {
+        this.dtFechaServir = dtFechaServir;
     }
 
-    public CServicio getObjservicio() {
-        return objservicio;
+    public Date getDtFechaIngreso() {
+        return dtFechaIngreso;
     }
 
-    public void setObjservicio(CServicio objservicio) {
-        this.objservicio = objservicio;
+    public void setDtFechaIngreso(Date dtFechaIngreso) {
+        this.dtFechaIngreso = dtFechaIngreso;
     }
-  
-    
 
+    public int getIntCantMax() {
+        return intCantMax;
+    }
 
+    public void setIntCantMax(int intCantMax) {
+        this.intCantMax = intCantMax;
+    }
 
+    public int getIntCantDisponible() {
+        return intCantDisponible;
+    }
+
+    public void setIntCantDisponible(int intCantDisponible) {
+        this.intCantDisponible = intCantDisponible;
+    }
+
+    public CServicio getObjServicio() {
+        return objServicio;
+    }
+
+    public void setObjServicio(CServicio objServicio) {
+        this.objServicio = objServicio;
+    }
+
+    public CEstado getObjEstado() {
+        return objEstado;
+    }
+
+    public void setObjEstado(CEstado objEstado) {
+        this.objEstado = objEstado;
+    }
 
 }

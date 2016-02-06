@@ -13,19 +13,13 @@ package ec.edu.espoch.comedor.entidad;
 public class CServicio {
    private int codigoservicio;
   private String descripcionservicio;
-  private int cantidad;
-  private int disponible;
-  CMenu objMenu;  
 
     public CServicio() {
     }
 
-    public CServicio(int codigoservicio, String descripcionservicio, int cantidad, int disponible, CMenu objMenu) {
+    public CServicio(int codigoservicio, String descripcionservicio) {
         this.codigoservicio = codigoservicio;
         this.descripcionservicio = descripcionservicio;
-        this.cantidad = cantidad;
-        this.disponible = disponible;
-        this.objMenu = objMenu;
     }
 
     public int getCodigoservicio() {
@@ -43,30 +37,5 @@ public class CServicio {
     public void setDescripcionservicio(String descripcionservicio) {
         this.descripcionservicio = descripcionservicio;
     }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public int getDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(int disponible) {
-        this.disponible = disponible;
-    }
-
-    public CMenu getObjMenu() {
-        return objMenu;
-    }
-
-    public void setObjMenu(CMenu objMenu) {
-        this.objMenu = objMenu;
-    }
-  
     
 }

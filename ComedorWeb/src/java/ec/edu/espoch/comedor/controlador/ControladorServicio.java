@@ -96,7 +96,6 @@ public class ControladorServicio implements Serializable {
     //<editor-fold desc="Insertar">
     public void insertar() {
         try {
-            objServicio.setDisponible(objServicio.getCantidad());
             if (MServicio.insertar(objServicio)) {
                 cargar();
                 DefaultRequestContext.getCurrentInstance().execute("PF('TservicioCreateDialog').hide()");
@@ -117,26 +116,26 @@ public class ControladorServicio implements Serializable {
         int suma = a + b;
         System.out.println("Correcto ==>" + suma);
     }
-    
-    
-     public void editarEscuela() {
+
+    public void editarEscuela() {
         try {
             if (MServicio.modificarServicio(getSelObjServicio())) {
                 Util.addSuccessMessage("Datos Modificados");
                 DefaultRequestContext.getCurrentInstance().execute("PF('wgEditarServicio').hide()");
-                 cargar();
+                cargar();
 
             } else {
                 Util.mostrarMensaje("Datos no Modificadoss");
             }
 
-            objServicio= null;
+            objServicio = null;
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());
         }
 
     }
-     public void eliminarServicio() {
+
+    public void eliminarServicio() {
         try {
             if (MServicio.elimninarServicio(getSelObjServicio().getCodigoservicio())) {
                 DefaultRequestContext.getCurrentInstance().execute("PF('wgEliminarServicio').hide()");
@@ -154,5 +153,4 @@ public class ControladorServicio implements Serializable {
 
     }
 
-    
 }
