@@ -11,6 +11,8 @@ import ec.edu.espoch.comedor.accesodatos.ConjuntoResultado;
 import ec.edu.espoch.comedor.entidad.CEstado;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import ec.edu.espoch.comedor.accesodatos.Parametro;
+
 
 /**
  *
@@ -47,6 +49,23 @@ public static ArrayList<CEstado> llenarEstado(ConjuntoResultado rs) throws Excep
         return lst;
     }
  
-
+public static CEstado obtenerObjetoEstado(int codigo) throws Exception {
+        CEstado estado = null;
+ ArrayList<Parametro> lstP = new ArrayList<>();
+        try {
+            String sql = "select *from testadomenu where idestadomenu=?";
+             lstP.add(new Parametro(1, codigo ));
+            ConjuntoResultado rs= AccesoDatos.ejecutaQuery(sql,lstP);
+           while(rs.next()){
+           
+            estado = new CEstado(rs.getInt(0),
+                    rs.getString(1));
+        } 
+        }
+           catch (SQLException e) {
+            throw e;
+        }
+        return estado;
+    }
 }
 
