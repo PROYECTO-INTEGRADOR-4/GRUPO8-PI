@@ -111,17 +111,10 @@ public class ControladorServicio implements Serializable {
     //</editor-fold>
 
     public void actualizar() {
-        int a = 3;
-        int b = 5;
-        int suma = a + b;
-        System.out.println("Correcto ==>" + suma);
-    }
-
-    public void editarEscuela() {
         try {
             if (MServicio.modificarServicio(getSelObjServicio())) {
                 Util.addSuccessMessage("Datos Modificados");
-                DefaultRequestContext.getCurrentInstance().execute("PF('wgEditarServicio').hide()");
+                DefaultRequestContext.getCurrentInstance().execute("PF('TservicioEditDialog').hide()");
                 cargar();
 
             } else {
@@ -135,10 +128,10 @@ public class ControladorServicio implements Serializable {
 
     }
 
-    public void eliminarServicio() {
+    public void eliminar() {
         try {
             if (MServicio.elimninarServicio(getSelObjServicio().getCodigoservicio())) {
-                DefaultRequestContext.getCurrentInstance().execute("PF('wgEliminarServicio').hide()");
+                DefaultRequestContext.getCurrentInstance().execute("PF('TservicioDeleteDialog').hide()");
                 Util.addSuccessMessage("Datos Eliminados");
                 cargar();
 

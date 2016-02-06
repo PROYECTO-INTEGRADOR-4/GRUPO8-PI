@@ -65,7 +65,7 @@ public class MServicio {
         boolean respuesta = false;
         try {
             ArrayList<Parametro> lstParamServicio = new ArrayList<>();
-            String sql = "SELECT fn_insert_tservicio(?,?,?);";
+            String sql = "SELECT fn_insert_tservicio(?);";
             lstParamServicio.add(new Parametro(1, objServicio.getDescripcionservicio()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParamServicio);
             while (rs.next()) {
@@ -105,7 +105,7 @@ public class MServicio {
             String sql = "select *from fn_update_tservicio(?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<Parametro>();
             lstpar.add(new Parametro(1, servicio.getCodigoservicio()));
-            lstpar.add(new Parametro(1, servicio.getDescripcionservicio()));
+            lstpar.add(new Parametro(2, servicio.getDescripcionservicio()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getString(0).equals("true")) {
