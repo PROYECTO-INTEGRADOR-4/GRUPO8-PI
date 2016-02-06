@@ -14,14 +14,24 @@ public class CPrecio {
     private CServicio objServicio;
     private CTipo objTipo;
     private double dblValor;
+    private int precioid;
 
     public CPrecio() {
     }
 
-    public CPrecio(CServicio objServicio, CTipo objTipo, double dblValor) {
+    public CPrecio(CServicio objServicio, CTipo objTipo, double dblValor, int precioid) {
         this.objServicio = objServicio;
         this.objTipo = objTipo;
         this.dblValor = dblValor;
+        this.precioid=precioid;
+    }
+
+    public int getPrecioid() {
+        return precioid;
+    }
+
+    public void setPrecioid(int precioid) {
+        this.precioid = precioid;
     }
 
     public CServicio getObjServicio() {

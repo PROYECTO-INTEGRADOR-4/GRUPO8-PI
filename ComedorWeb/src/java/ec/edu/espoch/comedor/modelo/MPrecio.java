@@ -64,80 +64,47 @@ public class MPrecio {
         }
         return respuesta;
     }
-    /*
-     public static boolean modificarCuenta(CPrecio precio) throws Exception {
-     boolean respuesta = false;
-     try {
-     String sql = "SELECT * from fn_update_tprecio(?,?,?,?)";
-     ArrayList<Parametro> lstpar = new ArrayList<>();
-     lstpar.add(new Parametro(1, precio.getIdprecio()));
-     lstpar.add(new Parametro(3, precio.getPreciomonto()));
-     lstpar.add(new Parametro(2, precio.getPreciodescripcion()));
-     lstpar.add(new Parametro(4, precio.getObjservicio()));
 
-     ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-     while (rs.next()) {
-     if (rs.getString(0).equals("true")) {
-     respuesta = true;
-     }
-     }
-     } catch (SQLException e) {
-     throw e;
-     }
-     return respuesta;
-     }
+    public static boolean modificarPrecio(CPrecio precio) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "SELECT * from fn_update_tprecio(?,?,?,?)";
+            ArrayList<Parametro> lstpar = new ArrayList<>();
+            lstpar.add(new Parametro(2, precio.getObjServicio().getCodigoservicio()));
+            lstpar.add(new Parametro(3, precio.getObjTipo().getIntTipoId()));
+            lstpar.add(new Parametro(4, precio.getDblValor()));
+            lstpar.add(new Parametro(4, precio.getPrecioid()));
 
-     public static boolean elminarCuenta(CPrecio precio) throws Exception {
-     boolean respuesta = false;
-     try {
-     String sql = "select * from fn_delete_tcuenta(?)";
-     ArrayList<Parametro> lstpar = new ArrayList<>();
-     lstpar.add(new Parametro(1, precio.getIdprecio()));
-     ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-     while (rs.next()) {
-     if (rs.getString(0).equals("true")) {
-     respuesta = true;
-     }
-     }
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return respuesta;
+    }
 
-     } catch (SQLException e) {
-     throw e;
-     }
-     return respuesta;
-     }
+    public static boolean elminarPrecio(CPrecio precio) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "select * from fn_delete_tprecio(?)";
+            ArrayList<Parametro> lstpar = new ArrayList<>();
+            lstpar.add(new Parametro(1, precio.getPrecioid()));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while (rs.next()) {
+                if (rs.getString(0).equals("true")) {
+                    respuesta = true;
+                }
+            }
 
-     public static ArrayList<CPrecio> obtenerCuenta() throws Exception {
-     ArrayList<CPrecio> lst = new ArrayList<CPrecio>();
-     try {
-     String sql = "SELECT * from fn_select_tcuenta()";
-     ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql);
-     lst = llenarPrecio(rs);
-     rs = null;
-     } catch (SQLException exConec) {
-     throw new Exception(exConec.getMessage());
-     }
-     return lst;
-     }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return respuesta;
+    }
 
-     public static ArrayList<CPrecio> llenarPrecio(ConjuntoResultado rs) throws Exception {
-     ArrayList<CPrecio> lst = new ArrayList<CPrecio>();
-     CServicio objprecio = new CServicio();
-     CPrecio precio = null;
-     try {
-     while (rs.next()) {
-
-     precio = new CPrecio(rs.getInt(0),
-     rs.getString(1), rs.getDouble(2), objprecio);
-
-     lst.add(precio);
-     }
-     } catch (Exception e) {
-     lst.clear();
-     //  integracion.auditoria.log ublog = new integracion.auditoria.log();
-     // ublog.write("Modulo", "llenarModulos", e.getClass().getName(), e.getMessage());
-     throw e;
-     }
-     return lst;
-     }
-     */
+    
 }

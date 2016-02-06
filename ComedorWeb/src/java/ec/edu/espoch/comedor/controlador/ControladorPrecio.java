@@ -12,7 +12,9 @@ import ec.edu.espoch.comedor.modelo.MPrecio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import org.primefaces.context.DefaultRequestContext;
 import recursos.Util;
@@ -107,6 +109,40 @@ public class ControladorPrecio implements Serializable {
             }
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());
+        }
+    }
+     public void actualizar() {
+        try {
+            if (MPrecio.modificarPrecio(selObjPrecio)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Datos actualizados correctamente"));
+                DefaultRequestContext.getCurrentInstance().execute("wglUpdatMenu.hide()");
+                this.selObjPrecio=new CPrecio();
+                cargar();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("Datos no actualizados"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
+        }
+    }
+       public void eliminar() {
+        try {
+            if (MPrecio.elminarPrecio(selObjPrecio)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Datos eliminados correctamente"));
+                DefaultRequestContext.getCurrentInstance().execute("wglDeletMenu.hide()");
+                this.selObjPrecio=new CPrecio();
+                cargar();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("Datos no eliminados"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
         }
     }
 }
