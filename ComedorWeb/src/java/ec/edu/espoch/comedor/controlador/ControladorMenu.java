@@ -7,6 +7,7 @@ package ec.edu.espoch.comedor.controlador;
 import ec.edu.espoch.comedor.entidad.*;
 import ec.edu.espoch.comedor.modelo.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,15 +23,16 @@ import org.primefaces.context.DefaultRequestContext;
 public class ControladorMenu {
     private CMenu objMenu;// st objeto para insertar
     private CMenu selMenu;//st objeto seleccionar
-    private ArrayList <CMenu> lstMenu;
+    private List <CMenu> lstMenu;
 
     public ControladorMenu() {
     }
 
-    public ControladorMenu(CMenu objMenu, CMenu selMenu, ArrayList<CMenu> lstMenu) {
+    public ControladorMenu(CMenu objMenu, CMenu selMenu,List<CMenu> lstMenu, int codigo) {
         this.objMenu = objMenu;
         this.selMenu = selMenu;
         this.lstMenu = lstMenu;
+        this.codigo=codigo;
     }
 
     public CMenu getObjMenu() {
@@ -49,14 +51,23 @@ public class ControladorMenu {
         this.selMenu = selMenu;
     }
 
-    public ArrayList<CMenu> getLstMenu() {
+    public List<CMenu> getLstMenu() {
         return lstMenu;
     }
 
-    public void setLstMenu(ArrayList<CMenu> lstMenu) {
+    public void setLstMenu(List<CMenu> lstMenu) {
         this.lstMenu = lstMenu;
     }
-    
+     int codigo;
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+     
     @PostConstruct
     public void rinit(){
     cargarMenu();//Inicializa metodos
@@ -65,7 +76,7 @@ public class ControladorMenu {
      private void cargarMenu()
     {
     try{
-        this.lstMenu=MMenu.obtenerMenu();
+        this.lstMenu=MMenu.cargar(codigo);
         }catch(Exception e){
             System.out.println("e"+e.getMessage().toString());
     }
