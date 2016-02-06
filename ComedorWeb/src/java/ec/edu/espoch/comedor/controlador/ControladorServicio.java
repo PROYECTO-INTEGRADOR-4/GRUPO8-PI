@@ -117,4 +117,42 @@ public class ControladorServicio implements Serializable {
         int suma = a + b;
         System.out.println("Correcto ==>" + suma);
     }
+    
+    
+     public void editarEscuela() {
+        try {
+            if (MServicio.modificarServicio(getSelObjServicio())) {
+                Util.addSuccessMessage("Datos Modificados");
+                DefaultRequestContext.getCurrentInstance().execute("PF('wgEditarServicio').hide()");
+                 cargar();
+
+            } else {
+                Util.mostrarMensaje("Datos no Modificadoss");
+            }
+
+            objServicio= null;
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+        }
+
+    }
+     public void eliminarServicio() {
+        try {
+            if (MServicio.elimninarServicio(getSelObjServicio().getCodigoservicio())) {
+                DefaultRequestContext.getCurrentInstance().execute("PF('wgEliminarServicio').hide()");
+                Util.addSuccessMessage("Datos Eliminados");
+                cargar();
+
+            } else {
+                Util.mostrarMensaje("Datos no Eliminados");
+            }
+
+            objServicio = null;
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+        }
+
+    }
+
+    
 }

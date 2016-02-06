@@ -9,6 +9,7 @@ import ec.edu.espoch.comedor.accesodatos.AccesoDatos;
 import ec.edu.espoch.comedor.accesodatos.ConjuntoResultado;
 import ec.edu.espoch.comedor.accesodatos.Parametro;
 import ec.edu.espoch.comedor.entidad.CServicio;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,4 +85,42 @@ public class MServicio {
         return respuesta;
     }
     //</editor-fold>
+    
+    
+     public static boolean elimninarServicio(int codigo) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "select * from fn_delete_tservicio(?)";
+            ArrayList<Parametro> lstpar = new ArrayList<Parametro>();
+            lstpar.add(new Parametro(1, codigo));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while(rs.next())
+            {
+                if(rs.getString(0).equals("true"))
+                    respuesta=true;
+            }
+
+        } catch (SQLException e) {
+            throw  e;
+        }
+        return respuesta;
+    }
+ public static boolean modificarServicio(CServicio servicio) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "select *from fn_update_tservicio(?,?)";
+            ArrayList<Parametro> lstpar = new ArrayList<Parametro>();
+            lstpar.add(new Parametro(1, servicio.getCantidad()));
+            lstpar.add(new Parametro(1, servicio.getDescripcionservicio()));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while(rs.next())
+            {
+                if(rs.getString(0).equals("true"))
+                    respuesta=true;
+            }
+        } catch (SQLException e) {
+            throw  e;
+        }
+        return respuesta;
+    }
 }
