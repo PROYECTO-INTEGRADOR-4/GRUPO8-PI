@@ -13,7 +13,6 @@ import ec.edu.espoch.comedor.entidad.CMenu;
 import ec.edu.espoch.comedor.entidad.CServicio;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 //import wsInfoCarrera.Parametro;
 
 /**
@@ -21,22 +20,14 @@ import java.util.List;
  * @author Tupac
  */
 public class MMenu {
-
+    
     public static boolean insertarMenu(CMenu menu) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "Select * from fn_insert_tmenu(?,?,?,?,?)";
+            String sql = "Select * from fn_insert_tcuenta(?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, menu.getObjServicio().getCodigoservicio()));
-            lstpar.add(new Parametro(2, menu.getStrMenuDescripcion()));
-            lstpar.add(new Parametro(3, menu.getIntCantMax()));
-            lstpar.add(new Parametro(1, menu.getIntCantDisponible()));
-            lstpar.add(new Parametro(1, menu.getDtFechaServir()));
-
-
-
-
-
+            lstpar.add(new Parametro(1, menu.getIntMenuId()));
+            
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getBoolean(0) == true) {
@@ -50,19 +41,14 @@ public class MMenu {
         }
         return respuesta;
     }
-
+    
     public static boolean modificarMenu(CMenu menu) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "SELECT * from fn_update_tmenu(?,?,?,?,?,?)";
+            String sql = "SELECT * from fn_update_tmenu(?,?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
             lstpar.add(new Parametro(1, menu.getIntMenuId()));
-            lstpar.add(new Parametro(1, menu.getObjServicio().getCodigoservicio()));
-            lstpar.add(new Parametro(1, menu.getStrMenuDescripcion()));
-            lstpar.add(new Parametro(1, menu.getIntCantMax()));
-            lstpar.add(new Parametro(1, menu.getIntCantDisponible()));
-            lstpar.add(new Parametro(1, menu.getObjServicio()));
-
+            
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getString(0).equals("true")) {
@@ -74,53 +60,55 @@ public class MMenu {
         }
         return respuesta;
     }
-
-    public static boolean elminarMenu(CMenu menu) throws Exception {
+    
+    public static boolean elminarMenu(CMenu cuenta) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "SELECT * from fn_delete_tmenu(?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, menu.getIntMenuId()));
+            lstpar.add(new Parametro(1, cuenta.getIntMenuId()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getString(0).equals("true")) {
                     respuesta = true;
                 }
             }
-
+            
         } catch (SQLException e) {
             throw e;
         }
         return respuesta;
     }
-
-   
-
-    //<editor-fold desc="Cargar precios">
-     public static List<CMenu> cargar(int idservicio) throws Exception {
-        List<CMenu> lstMenus = new ArrayList<>();
+    
+    public static ArrayList<CMenu> obtenerMenu(int intServicioId) throws Exception {
+        ArrayList<CMenu> lst = new ArrayList<CMenu>();
         try {
-            String sql = "select *from fn_select_tmenuidserv(?);";
-            ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, idservicio));
-            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql);
+            String sql = "select *from fn_select_tmenuidserv(?)";
+            ArrayList<Parametro> lstParam = new ArrayList<>();
+            lstParam.add(new Parametro(1, intServicioId));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParam);
             while (rs.next()) {
                 CMenu objMenu = new CMenu();
                 objMenu.setIntMenuId(rs.getInt(0));
-                MServicio.cargarPorId(rs.getInt(1));
-                objMenu.setDtFechaIngreso(rs.getTimeStamp(2));
-                objMenu.setStrMenuDescripcion(rs.getString(3));
+                objMenu.setStrMenuDescripcion(rs.getString(1));
+                objMenu.setDtFechaIngreso(rs.getDate(2));
+                objMenu.setDtFechaServir(rs.getDate(3));
                 objMenu.setIntCantMax(rs.getInt(4));
                 objMenu.setIntCantDisponible(rs.getInt(5));
-                MEstado.obtenerObjetoEstado(rs.getInt(6));
-                objMenu.setDtFechaServir(rs.getTimeStamp(7));
-                lstMenus.add(objMenu);
+                
+                CServicio objServicio = MServicio.cargarPorId(rs.getInt(6));
+                objMenu.setObjServicio(objServicio);
+                
+                CEstado objEstado = MEstado.obtenerObjetoEstado(rs.getInt(7));
+                objMenu.setObjEstado(objEstado);
+                
+                lst.add(objMenu);
             }
-
-        } catch (Exception e) {
-            lstMenus.clear();
-            throw e;
+            rs = null;
+        } catch (SQLException exConec) {
+            lst.clear();
+            throw new Exception(exConec.getMessage());
         }
-        return lstMenus;
+        return lst;
     }
 }

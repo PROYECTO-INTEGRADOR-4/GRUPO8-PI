@@ -5,8 +5,8 @@
     xmlns:p="http://primefaces.org/ui">
 
     <p:dialog 
-        id="TdesayunoCreateDlg" 
-        widgetVar="TdesayunoCreateDialog" 
+        id="TmenuCreateDlg" 
+        widgetVar="TmenuCreateDialog" 
         modal="true" 
         resizable="false" 
         appendTo="@(body)" 
@@ -15,7 +15,7 @@
         hideEffect="explode"
         responsive="true">
 
-        <h:form id="TdesayunoCreateForm">
+        <h:form id="TmenuCreateForm">
             <p:growl id="msgs" showDetail="false" />
 
             <h:panelGroup id="display">
@@ -29,9 +29,9 @@
                         value="" 
                         label="Examinar"
                         required="true" 
-                        requiredMessage="Es necesario seleccionar un desayuno"/>
+                        requiredMessage="Es necesario seleccionar un menu"/>
 
-                    <h:outputLabel value="Fecha " for="txtFecha" />
+                    <h:outputLabel value="Fecha Servicio" for="txtFecha" />
                     <p:calendar 
                         id="txtFecha"
                         locale="es"
@@ -71,23 +71,18 @@
                             };</script>
 
                     </p:calendar>
-
-
-
-
-
                 </p:panelGrid>
                 <p:separator/>
 
                 <p:commandButton 
                     value="Cancelar" 
-                    onclick="PF('TdesayunoCreateDialog').hide()" 
+                    onclick="PF('TmenuCreateDialog').hide()" 
                     type="reset" 
                     styleClass="btnRight"/>
                 <p:commandButton 
                     value="Guardar" 
                     styleClass="btnRight"
-                    update="display,:TdesayunoListForm:datalist,:msgs" />
+                    update="display,:TmenuListForm:datalist,:msgs" />
 
 
 

@@ -11,53 +11,37 @@
 
     <ui:define name="body" >
         <h:form id="TdesayunoListForm">
-            <p:panel header="#{param.get('servicio')}" >
+            <center>
+                <h:panelGrid columns="1">
+                    <h:outputText 
+                        value="ESCUELA SUPERIOR POLITECNICA DE CHIBORAZO" 
+                        style="font-size: 25px;" />
+
+                </h:panelGrid>
+            </center>
+            <h:panelGrid columns="1" style="font-size: 15px; margin-left: 15px">
+                <h:outputText value="DEPARTAMENTO DE BIENESTAR"/>
+                <h:outputText value="SERVICIO DE ALIMENTACION"/>
+            </h:panelGrid>
+            <center>
+                <h:panelGrid columns="1" style="font-size: 15px">
+                    <h:outputText value="MENU DIARIO DE PREPARACIONES"/>
+                    <h:outputText value="Precio: "/>
+                </h:panelGrid>
+            </center>
+            <p:panel header="#{param.get('servicio')}">
+
                 <p:dataTable 
                     id="datalist" 
                     var="item"
                     selectionMode="single" 
-                    paginator="true"
                     reflow="true" 
                     rows="10"
-                    rowsPerPageTemplate="10,20,30,40,50"
 
-                    widgetVar="dataTable"
-                    emptyMessage="No se encontrò ningun desayuno"
 
                     >
 
-                    <f:facet name="header">
-                        <p:commandButton 
-                            id="createButton" 
-                            icon="ui-icon-plusthick"   
-                            value="Nuevo" 
-                            update=":TdesayunoCreateForm"
-                            oncomplete="PF('TdesayunoCreateDialog').show()">
 
-
-                        </p:commandButton>                       
-                    </f:facet>
-
-                    <f:facet name="header">
-                        <p:outputPanel style="margin-top: 10px">
-                            <h:form>
-                                <img src="../../resources/images/search104.png" width="16" height="16" alt="search104"/>
-                            </h:form>
-                            <h:outputText/>
-                            <p:inputText 
-                                id="globalFilter" 
-                                onkeyup="PF('dataTable').filter()" 
-                                style="width:150px" 
-                                placeholder="Buscar"/>
-                        </p:outputPanel>
-                    </f:facet>
-
-                    <p:ajax 
-                        event="rowSelect"  
-                        update="createButton"/>
-                    <p:ajax 
-                        event="rowUnselect" 
-                        update="createButton"/>
 
                     <p:column headerText="Descripción">
                         <f:facet name="header">
@@ -65,7 +49,7 @@
                         <h:outputText/>
                     </p:column>
 
-                    <p:column headerText="Fecha">
+                    <p:column headerText="Fecha Servicio">
                         <f:facet name="header">
                         </f:facet>
                         <h:outputText />

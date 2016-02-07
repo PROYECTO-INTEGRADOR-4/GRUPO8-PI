@@ -66,16 +66,39 @@
                     </p:column>
 
 
-                    <p:column headerText="Acciones">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:outputText />
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Acciones" />  
+                        </f:facet>  
+
+                        <p:commandButton 
+                            id="editButton"  
+                            title="Modificar" 
+                            icon="ui-icon-pencil" 
+                            update=":TprecioEditForm" 
+                            oncomplete="PF('TprecioEditDialog').show()">
+                            <f:setPropertyActionListener 
+                                value="#{item}" 
+                                target="#{controladorPrecio.selObjPrecio}"/>
+                        </p:commandButton>
+                        <p:commandButton 
+                            id="deleteButton" 
+                            title="Eliminar" 
+                            icon="ui-icon-trash" 
+                            update=":TprecioDeleteForm" 
+                            oncomplete="PF('TprecioDeleteDialog').show()">
+                            <f:setPropertyActionListener 
+                                value="#{item}" 
+                                target="#{controladorPrecio.selObjPrecio}"/>
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
             </p:panel>
         </h:form>
         <ui:include src="crear.xhtml"/>
+        <ui:include src="editar.xhtml"/>
+        <ui:include src="eliminar.xhtml"/>
     </ui:define>
 </ui:composition>
 

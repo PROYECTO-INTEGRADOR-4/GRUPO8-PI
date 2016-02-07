@@ -9,32 +9,32 @@
     <ui:composition>
 
         <p:dialog 
-            id="TservicioDeleteDlg" 
-            widgetVar="TservicioDeleteDialog" 
+            id="TmenuDeleteDlg" 
+            widgetVar="TmenuDeleteDialog" 
             modal="true" 
             resizable="false" 
             appendTo="@(body)" 
             header="Eliminar" 
             showEffect="fade" 
             hideEffect="explode">
-            <h:form id="TservicioDeleteForm">
+            <h:form id="TmenuDeleteForm">
                 <h:panelGroup id="display">
                     <p:panelGrid 
                         columns="2" 
-                        rendered="#{controladorServicio.selObjServicio != null}" 
+                        rendered="#{controladorMenu.selObjMenu != null}" 
                         styleClass="tblForm">                        
                         <h:outputText 
-                            value="¿Está seguro que desea eliminar el servicio #{controladorServicio.objServicio.descripcionservicio}?"/>
+                            value="¿Está seguro que desea eliminar el menu #{controladorMenu.selObjMenu.strMenuDescripcion}?"/>
                     </p:panelGrid>
                     <p:separator/>
                     <p:commandButton 
                         value="No" 
-                        onclick="PF('TservicioDeleteDialog').hide()" 
+                        onclick="PF('TmenuDeleteDialog').hide()" 
                         styleClass="btnRight"/>
                     <p:commandButton 
-                        actionListener="#{controladorServicio.eliminar()}" 
-                        value="Si" update="display,:TservicioListForm:datalist,:msgs" 
-                        oncomplete="handleSubmit(args, 'TservicioDeleteDialog');" 
+                        actionListener="#{controladorMenu.eliminar()}" 
+                        value="Si" update="display,:TmenuListForm:datalist,:msgs" 
+                        oncomplete="handleSubmit(args, 'TmenuDeleteDialog');" 
                         styleClass="btnRight"/>
                 </h:panelGroup>
             </h:form>

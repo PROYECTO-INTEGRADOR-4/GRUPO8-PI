@@ -3,38 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
 
         <p:dialog 
-            id="TservicioDeleteDlg" 
-            widgetVar="TservicioDeleteDialog" 
+            id="TprecioDeleteDlg" 
+            widgetVar="TprecioDeleteDialog" 
             modal="true" 
             resizable="false" 
             appendTo="@(body)" 
             header="Eliminar" 
             showEffect="fade" 
             hideEffect="explode">
-            <h:form id="TservicioDeleteForm">
+            <h:form id="TprecioDeleteForm">
                 <h:panelGroup id="display">
                     <p:panelGrid 
                         columns="2" 
-                        rendered="#{controladorServicio.selObjServicio != null}" 
+                        rendered="#{controladorPrecio.selObjPrecio != null}" 
                         styleClass="tblForm">                        
                         <h:outputText 
-                            value="¿Está seguro que desea eliminar el servicio #{controladorServicio.objServicio.descripcionservicio}?"/>
+                            value="¿Está seguro que desea eliminar el precio del #{controladorPrecio.selObjPrecio.objServicio.descripcionservicio}"/>
+                        <h:outputText 
+                            value="para #{controladorPrecio.selObjPrecio.objTipo.strTipoDescripcion}"/>
                     </p:panelGrid>
                     <p:separator/>
                     <p:commandButton 
                         value="No" 
-                        onclick="PF('TservicioDeleteDialog').hide()" 
+                        onclick="PF('TprecioDeleteDialog').hide()" 
                         styleClass="btnRight"/>
                     <p:commandButton 
-                        actionListener="#{controladorServicio.eliminar()}" 
-                        value="Si" update="display,:TservicioListForm:datalist,:msgs" 
-                        oncomplete="handleSubmit(args, 'TservicioDeleteDialog');" 
+                        actionListener="#{controladorPrecio.eliminar()}" 
+                        value="Si" update="display,:TprecioListForm:datalist,:msgs" 
+                        oncomplete="handleSubmit(args, 'TprecioDeleteDialog');" 
                         styleClass="btnRight"/>
                 </h:panelGroup>
             </h:form>

@@ -10,19 +10,23 @@
     </ui:define>
 
     <ui:define name="body" >
-        <h:form id="TdesayunoListForm">
-            <p:panel header="#{param.get('servicio')}" >
+        <h:form id="TmenuListForm">
+            <p:panel header="#{param.get('servicio')} #{controladorMenu.setId(param.get('id'))}">
                 <p:dataTable 
                     id="datalist" 
+                    value="#{controladorMenu.lstMenus}"
                     var="item"
                     selectionMode="single" 
+                    selection="#{controladorMenu.selObjMenu}"
                     paginator="true"
+                    rowKey="#{item.intMenuId}"
                     reflow="true" 
                     rows="10"
                     rowsPerPageTemplate="10,20,30,40,50"
 
                     widgetVar="dataTable"
-                    emptyMessage="No se encontrò ningun desayuno"
+                    filteredValue="#{controladorMenu.filteredMenus}"
+                    emptyMessage="No se encontrò ningun #{param.get('servicio')}"
 
                     >
 
@@ -31,8 +35,8 @@
                             id="createButton" 
                             icon="ui-icon-plusthick"   
                             value="Nuevo" 
-                            update=":TdesayunoCreateForm"
-                            oncomplete="PF('TdesayunoCreateDialog').show()">
+                            update=":TmenuCreateForm"
+                            oncomplete="PF('TmenuCreateDialog').show()">
 
 
                         </p:commandButton>                       
@@ -60,21 +64,21 @@
                         update="createButton"/>
 
                     <p:column headerText="Descripción">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:outputText/>
+                        <h:outputText value="#{item.strMenuDescripcion}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:outputText />
+                    <p:column headerText="Fecha Ingreso">
+                        <h:outputText value="#{item.dtFechaIngreso}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha Ingreso">
+                        <h:outputText value="#{item.dtFechaServir}"/>
                     </p:column>
 
                     <p:column headerText="Acciones">
                         <f:facet name="header">
+
                         </f:facet>
-                        <h:outputText />
                     </p:column>
 
                 </p:dataTable>

@@ -102,7 +102,7 @@ public class ControladorPrecio implements Serializable {
 
                 DefaultRequestContext.getCurrentInstance().execute("PF('TprecioCreateDialog').hide()");
                 Util.addSuccessMessage("Datos Insertados");
-                //this.objCPrecio = new CPrecio();
+                objCPrecio.setDblValor(0);
                 cargar();
             } else {
                 Util.addErrorMessage("Datos no insertados");
@@ -111,13 +111,14 @@ public class ControladorPrecio implements Serializable {
             Util.addErrorMessage(e.getMessage());
         }
     }
-     public void actualizar() {
+
+    public void actualizar() {
         try {
             if (MPrecio.modificarPrecio(selObjPrecio)) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Exito", new FacesMessage("Datos actualizados correctamente"));
-                DefaultRequestContext.getCurrentInstance().execute("wglUpdatMenu.hide()");
-                this.selObjPrecio=new CPrecio();
+                DefaultRequestContext.getCurrentInstance().execute("PF('TprecioEditDialog').hide()");
+                objCPrecio.setDblValor(0);
                 cargar();
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -128,13 +129,14 @@ public class ControladorPrecio implements Serializable {
             context.addMessage("Exito", new FacesMessage(e.getMessage()));
         }
     }
-       public void eliminar() {
+
+    public void eliminar() {
         try {
             if (MPrecio.elminarPrecio(selObjPrecio)) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage("Exito", new FacesMessage("Datos eliminados correctamente"));
-                DefaultRequestContext.getCurrentInstance().execute("wglDeletMenu.hide()");
-                this.selObjPrecio=new CPrecio();
+                DefaultRequestContext.getCurrentInstance().execute("PF('TprecioDeleteDialog').hide()");
+                objCPrecio.setDblValor(0);
                 cargar();
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();

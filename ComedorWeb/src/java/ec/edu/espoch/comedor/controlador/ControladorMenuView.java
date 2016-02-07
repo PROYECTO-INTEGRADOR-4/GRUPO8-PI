@@ -98,17 +98,16 @@ public class ControladorMenuView {
         item.setOutcome("/Administrador/precio/listar.xhtml");
         segundoSubmenu.addElement(item);
 
-        item = new DefaultMenuItem("Desayuno");
-        item.setIcon("");
-        item.setOutcome("/Administrador/precio/listar.xhtml");
-
         DefaultSubMenu menuSubmenu = new DefaultSubMenu("Menu");
         for (CServicio objS : lstS) {
             item = new DefaultMenuItem(objS.getDescripcionservicio());
             item.setIcon("");
             item.setOutcome("/Administrador/menu/listar.xhtml");
             item.setParam("id", objS.getCodigoservicio());
+            // item.setCommand("#{param.get('id')}");
             item.setParam("servicio", objS.getDescripcionservicio());
+
+            // item.setCommand("#{controladorMenu.asignarId( param.get('id') )}");
             menuSubmenu.addElement(item);
         }
         segundoSubmenu.addElement(menuSubmenu);

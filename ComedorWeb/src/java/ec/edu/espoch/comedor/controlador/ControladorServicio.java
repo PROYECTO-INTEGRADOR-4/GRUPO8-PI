@@ -116,12 +116,11 @@ public class ControladorServicio implements Serializable {
                 Util.addSuccessMessage("Datos Modificados");
                 DefaultRequestContext.getCurrentInstance().execute("PF('TservicioEditDialog').hide()");
                 cargar();
-
+                this.objServicio = new CServicio();
             } else {
                 Util.mostrarMensaje("Datos no Modificadoss");
             }
 
-            objServicio = null;
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());
         }
@@ -134,12 +133,11 @@ public class ControladorServicio implements Serializable {
                 DefaultRequestContext.getCurrentInstance().execute("PF('TservicioDeleteDialog').hide()");
                 Util.addSuccessMessage("Datos Eliminados");
                 cargar();
+                this.objServicio = new CServicio();
 
             } else {
                 Util.mostrarMensaje("Datos no Eliminados");
             }
-
-            objServicio = null;
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());
         }

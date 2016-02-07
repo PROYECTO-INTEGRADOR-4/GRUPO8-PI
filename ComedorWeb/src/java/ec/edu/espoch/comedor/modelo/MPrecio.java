@@ -68,12 +68,11 @@ public class MPrecio {
     public static boolean modificarPrecio(CPrecio precio) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "SELECT * from fn_update_tprecio(?,?,?,?)";
+            String sql = "SELECT * from fn_update_tprecio(?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(2, precio.getObjServicio().getCodigoservicio()));
-            lstpar.add(new Parametro(3, precio.getObjTipo().getIntTipoId()));
-            lstpar.add(new Parametro(4, precio.getDblValor()));
-            lstpar.add(new Parametro(4, precio.getPrecioid()));
+            lstpar.add(new Parametro(1, precio.getObjServicio().getCodigoservicio()));
+            lstpar.add(new Parametro(2, precio.getObjTipo().getIntTipoId()));
+            lstpar.add(new Parametro(3, precio.getDblValor()));
 
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
@@ -90,9 +89,10 @@ public class MPrecio {
     public static boolean elminarPrecio(CPrecio precio) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "select * from fn_delete_tprecio(?)";
+            String sql = "select * from fn_delete_tprecio(?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, precio.getPrecioid()));
+            lstpar.add(new Parametro(1, precio.getObjTipo().getIntTipoId()));
+            lstpar.add(new Parametro(2, precio.getObjServicio().getCodigoservicio()));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getString(0).equals("true")) {
@@ -106,5 +106,4 @@ public class MPrecio {
         return respuesta;
     }
 
-    
 }

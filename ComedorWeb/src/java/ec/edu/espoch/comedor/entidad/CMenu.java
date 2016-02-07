@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package ec.edu.espoch.comedor.entidad;
-//import ec.edu.espoch.comedor.accesodatos.*;
 
 import java.util.Date;
 
@@ -15,12 +14,12 @@ import java.util.Date;
 public class CMenu {
 
     private int intMenuId;
-    private CServicio objServicio;
-    private Date dtFechaIngreso;
     private String strMenuDescripcion;
+    private Date dtFechaIngreso;
+    private Date dtFechaServir;
     private int intCantMax;
     private int intCantDisponible;
-    private Date dtFechaServir;
+    private CServicio objServicio;
     private CEstado objEstado;
 
     public CMenu() {
