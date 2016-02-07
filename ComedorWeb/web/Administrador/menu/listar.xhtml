@@ -64,7 +64,17 @@
                         update="createButton"/>
 
                     <p:column headerText="Descripción">
-                        <h:outputText value="#{item.strMenuDescripcion}"/>
+                        <h:inputTextarea 
+                            disabled="true"
+                            rows="6"
+                            cols="31"
+                            readonly="true"
+                            style="
+                            background: transparent;
+                            border: transparent;
+                            font-style: normal;
+                            "
+                            value="#{item.strMenuDescripcion}"/>
                     </p:column>
 
                     <p:column headerText="Fecha Ingreso">

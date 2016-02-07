@@ -93,25 +93,36 @@ public final class ControladorMenu implements Serializable {
 
     public void eliminar() {
         int a = 0;
+        System.out.println("frcde ==>" + a);
+    }
+
+    public void t() {
+        int a = 0;
+        System.out.println("frcde ==>" + a);
+    }
+
+    public void insertarMenu() {
+        CServicio objSer=new CServicio();
+        objSer.setCodigoservicio(id);
+        objMenu.setObjServicio(objSer);
+        objMenu.setIntCantDisponible(objMenu.getIntCantMax());
+
+        try {
+            if (MMenu.insertarMenu(objMenu)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Exito", new FacesMessage("Datos insertados correctamente"));
+                DefaultRequestContext.getCurrentInstance().execute("PF('TmenuCreateDialog').hide()");
+                cargarMenu();
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage("Fracaso", new FacesMessage("Datos no insertados"));
+            }
+        } catch (Exception e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("Exito", new FacesMessage(e.getMessage()));
+        }
     }
     /*
-     public void insertarMenu() {
-     try {
-     if (MMenu.insertarMenu(objMenu)) {
-     FacesContext context = FacesContext.getCurrentInstance();
-     context.addMessage("Exito", new FacesMessage("Datos insertados correctamente"));
-     DefaultRequestContext.getCurrentInstance().execute("wglInsertMenu.hide()");//esto se debe cambiar deacuerdo a la interfaz del usuario
-     cargarMenu();
-     } else {
-     FacesContext context = FacesContext.getCurrentInstance();
-     context.addMessage("Fracaso", new FacesMessage("Datos no insertados"));
-     }
-     } catch (Exception e) {
-     FacesContext context = FacesContext.getCurrentInstance();
-     context.addMessage("Exito", new FacesMessage(e.getMessage()));
-     }
-     }
-
      public void actualizarMenu() {
      try {
      if (MMenu.modificarMenu(selMenu)) {

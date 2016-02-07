@@ -17,27 +17,32 @@
 
         <h:form id="TmenuCreateForm">
             <p:growl id="msgs" showDetail="false" />
-
             <h:panelGroup id="display">
                 <p:panelGrid 
-                    columns="2" 
+                    columns="2"
+                    rendered="#{controladorMenu.objMenu!=null}"
                     styleClass="tblForm">  
-
                     <h:outputLabel value="Descripción " for="txtDescripción" />
                     <p:inputTextarea
-                        id="txtDocumento"
-                        value="" 
-                        label="Examinar"
+                        id="txtDescripción"
+                        value="#{controladorMenu.objMenu.strMenuDescripcion}" 
+                        label="Descripción"
                         required="true" 
                         requiredMessage="Es necesario seleccionar un menu"/>
-
+                    <h:outputLabel value="Cantidad Máxima" for="txtCantM"/>
+                    <p:inputText 
+                        id="txtCantM"
+                        value="#{controladorMenu.objMenu.intCantMax}"
+                        label="Cantidad Máxima"
+                        required="true" 
+                        requiredMessage="Es necesario seleccionar un menu"/>
                     <h:outputLabel value="Fecha Servicio" for="txtFecha" />
-                    <p:calendar 
+                    <p:calendar
                         id="txtFecha"
                         locale="es"
                         mindate="#{controladorFecha.fecha}"
                         pattern="dd/MM/yyyy" 
-                        value="#{controladorFecha.fecha}" 
+                        value="#{controladorMenu.objMenu.dtFechaServir}" 
                         title="Fecha" 
                         required="true" 
                         requiredMessage="Es necesario ingresar la fecha" 
@@ -69,8 +74,8 @@
                                 day: 'Día',
                                 allDayText: 'Todo el día'
                             };</script>
-
                     </p:calendar>
+
                 </p:panelGrid>
                 <p:separator/>
 
@@ -81,17 +86,12 @@
                     styleClass="btnRight"/>
                 <p:commandButton 
                     value="Guardar" 
+                    actionListener="#{controladorMenu.insertarMenu()}"
+                    update="display,:TmenuListForm:datalist,:msgs" 
                     styleClass="btnRight"
-                    update="display,:TmenuListForm:datalist,:msgs" />
-
-
-
+                    />
             </h:panelGroup>
-
-
         </h:form>
-
     </p:dialog>
-
 </ui:composition>
 

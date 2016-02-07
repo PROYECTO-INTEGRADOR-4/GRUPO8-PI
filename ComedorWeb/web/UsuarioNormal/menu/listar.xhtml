@@ -12,53 +12,61 @@
     <ui:define name="body" >
         <h:form id="TdesayunoListForm">
             <center>
-                <h:panelGrid columns="1">
-                    <h:outputText 
-                        value="ESCUELA SUPERIOR POLITECNICA DE CHIBORAZO" 
+                <p:panelGrid columns="1" layout="grid" style="background-color: #000">
+
+                    <h:outputLabel 
+                        value="ESCUELA SUPERIOR POLITECNICA DE CHIMBORAZO" 
                         style="font-size: 25px;" />
 
-                </h:panelGrid>
+                    <h:outputText style="float: left; font-size: 15px; margin-left: 15px" value="DEPARTAMENTO DE BIENESTAR"/>
+                    <h:outputText style="float: left; font-size: 15px; margin-left: 15px" value="SERVICIO DE ALIMENTACION"/>
+
+                    <h:outputText  style="font-size: 15px;" value="MENU DIARIO DE PREPARACIONES"/>
+                    <h:outputText style="font-size: 15px;" value="Precio: "/>
+                </p:panelGrid>
             </center>
-            <h:panelGrid columns="1" style="font-size: 15px; margin-left: 15px">
-                <h:outputText value="DEPARTAMENTO DE BIENESTAR"/>
-                <h:outputText value="SERVICIO DE ALIMENTACION"/>
-            </h:panelGrid>
-            <center>
-                <h:panelGrid columns="1" style="font-size: 15px">
-                    <h:outputText value="MENU DIARIO DE PREPARACIONES"/>
-                    <h:outputText value="Precio: "/>
-                </h:panelGrid>
-            </center>
-            <p:panel header="#{param.get('servicio')}">
+
+            <p:panel header="#{param.get('servicio')} #{controladorMenu.setId(param.get('id'))}">
 
                 <p:dataTable 
                     id="datalist" 
+                    value="#{controladorMenu.lstMenus}"
                     var="item"
                     selectionMode="single" 
+                    selection="#{controladorMenu.selObjMenu}"
+
+                    rowKey="#{item.intMenuId}"
                     reflow="true" 
                     rows="10"
 
 
                     >
-
-
-
                     <p:column headerText="Descripción">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:outputText/>
+                        <h:inputTextarea 
+                            disabled="true"
+                            rows="6"
+                            cols="35"
+                            readonly="true"
+                            style="
+                            background: transparent;
+                            border: transparent;
+                            font-style: normal;
+                            "
+                            value="#{item.strMenuDescripcion}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha Servicio">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:outputText />
+                    <p:column headerText="Fecha Ingreso">
+                        <h:outputText value="#{item.dtFechaIngreso}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha Ingreso">
+                        <h:outputText value="#{item.dtFechaServir}"/>
                     </p:column>
 
                     <p:column headerText="Acciones">
                         <f:facet name="header">
+
                         </f:facet>
-                        <h:outputText />
                     </p:column>
 
                 </p:dataTable>

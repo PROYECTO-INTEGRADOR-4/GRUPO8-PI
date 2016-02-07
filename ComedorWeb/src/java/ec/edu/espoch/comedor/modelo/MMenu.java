@@ -13,21 +13,24 @@ import ec.edu.espoch.comedor.entidad.CMenu;
 import ec.edu.espoch.comedor.entidad.CServicio;
 import java.sql.SQLException;
 import java.util.ArrayList;
-//import wsInfoCarrera.Parametro;
 
 /**
  *
  * @author Tupac
  */
 public class MMenu {
-    
+
     public static boolean insertarMenu(CMenu menu) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "Select * from fn_insert_tcuenta(?,?,?)";
+            String sql = "select *from fn_insert_tmenu(?,?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
-            lstpar.add(new Parametro(1, menu.getIntMenuId()));
-            
+            java.sql.Date fechaCosumo = new java.sql.Date(menu.getDtFechaServir().getTime());
+            lstpar.add(new Parametro(1, menu.getStrMenuDescripcion()));
+            lstpar.add(new Parametro(2, fechaCosumo));
+            lstpar.add(new Parametro(3, menu.getIntCantMax()));
+            lstpar.add(new Parametro(4, menu.getObjServicio().getCodigoservicio()));
+
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getBoolean(0) == true) {
@@ -41,14 +44,14 @@ public class MMenu {
         }
         return respuesta;
     }
-    
+
     public static boolean modificarMenu(CMenu menu) throws Exception {
         boolean respuesta = false;
         try {
             String sql = "SELECT * from fn_update_tmenu(?,?,?,?)";
             ArrayList<Parametro> lstpar = new ArrayList<>();
             lstpar.add(new Parametro(1, menu.getIntMenuId()));
-            
+
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {
                 if (rs.getString(0).equals("true")) {
@@ -60,7 +63,7 @@ public class MMenu {
         }
         return respuesta;
     }
-    
+
     public static boolean elminarMenu(CMenu cuenta) throws Exception {
         boolean respuesta = false;
         try {
@@ -73,13 +76,13 @@ public class MMenu {
                     respuesta = true;
                 }
             }
-            
+
         } catch (SQLException e) {
             throw e;
         }
         return respuesta;
     }
-    
+
     public static ArrayList<CMenu> obtenerMenu(int intServicioId) throws Exception {
         ArrayList<CMenu> lst = new ArrayList<CMenu>();
         try {
@@ -95,13 +98,13 @@ public class MMenu {
                 objMenu.setDtFechaServir(rs.getDate(3));
                 objMenu.setIntCantMax(rs.getInt(4));
                 objMenu.setIntCantDisponible(rs.getInt(5));
-                
+
                 CServicio objServicio = MServicio.cargarPorId(rs.getInt(6));
                 objMenu.setObjServicio(objServicio);
-                
+
                 CEstado objEstado = MEstado.obtenerObjetoEstado(rs.getInt(7));
                 objMenu.setObjEstado(objEstado);
-                
+
                 lst.add(objMenu);
             }
             rs = null;
