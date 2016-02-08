@@ -106,4 +106,22 @@ public class MPrecio {
         return respuesta;
     }
 
+    public static double precio(int intSevicioId, int intTipoId) throws Exception {
+        double valor = 0;
+        try {
+            String sql = "select *from fn_select_tpreciovalor(?,?)";
+            ArrayList<Parametro> ltsParam = new ArrayList<>();
+            ltsParam.add(new Parametro(1, intSevicioId));
+            ltsParam.add(new Parametro(2, intTipoId));
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, ltsParam);
+            while (rs.next()) {
+                valor = rs.getDouble(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return valor;
+
+    }
+
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog 
+            id="TmenuCompraDlg" 
+            widgetVar="TmenuCompraDialog" 
+            modal="true" 
+            resizable="false" 
+            appendTo="@(body)" 
+            header="Comprobante" 
+            showEffect="fade" 
+            hideEffect="explode">
+            <h:form id="TmenuCompraForm">
+                <p:growl id="msgs" showDetail="true" />
+                <h:panelGroup id="display">
+                    <p:panelGrid 
+                        columns="2" 
+                        rendered="#{controladorComprobante.objCS!=null}"
+                        styleClass="tblForm"> 
+                        <h:outputLabel value="Número: " for="txtNum" />
+                        <p:outputLabel
+                            id="txtNum"
+                            value="#{controladorComprobante.num()}" 
+                            />
+                        <h:outputLabel value="Cédula: " for="txtCedula" />
+                        <p:outputLabel
+                            id="txtCedula"
+                            value="#{controladorUserLogin.objUserLogin.cedula}" 
+                            />
+                        <h:outputLabel value="Cliente: " for="txtCliente" />
+                        <p:outputLabel
+                            id="txtCliente"
+                            value="#{controladorUserLogin.objUserLogin.nombres} #{controladorUserLogin.objUserLogin.apellidos}" 
+                            />
+                        <h:outputLabel value="Rol: " for="txtRol" />
+                        <p:outputLabel
+                            id="txtRol"
+                            value="#{controladorUserLogin.rolCarrera.nombreRol}" 
+                            />
+
+                        <h:outputLabel value="Servicio: " for="txtServicio" />
+                        <p:outputLabel
+                            id="txtServicio"
+                            value="#{controladorComprobante.objCS.objServicio.descripcionservicio}" 
+                            />
+
+                        <h:outputLabel value="Precio: " for="txtPrecio" />
+                        <p:outputLabel
+                            id="txtPrecio"
+                            value="$ #{controladorComprobante.objCS.dblPrecio}" 
+                            />
+
+                        <h:outputLabel value="Cantidad: " for="txtCantidad" />
+                        <p:outputLabel
+                            id="txtCantidad"
+                            value="#{controladorComprobante.objCS.intCantidad}" 
+                            />
+
+                        <h:outputLabel value="Total: " for="txtTotal" />
+                        <p:outputLabel
+                            id="txtTotal"
+                            style="background-color: yellow"
+                            value="$ #{controladorComprobante.objCS.intCantidad * controladorComprobante.objCS.dblPrecio}" 
+                            />
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton 
+                        value="Cancelar" 
+                        onclick="PF('TmenuCompraDialog').hide()" 
+                        type="reset" 
+                        styleClass="btnRight"/>
+                    <p:commandButton 
+                        value="Aceptar" 
+                        actionListener="#{controladorMenu.eliminar()}"
+                        update="display,:TmenuListForm:datalist,:msgs" 
+                        styleClass="btnRight"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

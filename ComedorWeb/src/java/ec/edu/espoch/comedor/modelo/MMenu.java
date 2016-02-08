@@ -90,11 +90,12 @@ public class MMenu {
             ArrayList<Parametro> lstParam = new ArrayList<>();
             lstParam.add(new Parametro(1, intServicioId));
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstParam);
+
             while (rs.next()) {
                 CMenu objMenu = new CMenu();
                 objMenu.setIntMenuId(rs.getInt(0));
                 objMenu.setStrMenuDescripcion(rs.getString(1));
-                objMenu.setDtFechaIngreso(rs.getDate(2));
+                objMenu.setDtFechaIngreso(rs.getTimeStamp(2));
                 objMenu.setDtFechaServir(rs.getDate(3));
                 objMenu.setIntCantMax(rs.getInt(4));
                 objMenu.setIntCantDisponible(rs.getInt(5));

@@ -19,7 +19,7 @@
         <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorPrecio</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
+    <managed-bean>
         <managed-bean-name>controladorMenuView</managed-bean-name>
         <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorMenuView</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
@@ -32,6 +32,17 @@
     <managed-bean>
         <managed-bean-name>resizableView</managed-bean-name>
         <managed-bean-class>ec.edu.espoch.comedor.controlador.resizableView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>validationView</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ValidationView</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>controladorComprobante</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorComprobante</managed-bean-class>
+    
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

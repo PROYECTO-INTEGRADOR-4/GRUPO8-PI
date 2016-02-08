@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.DefaultRequestContext;
 import recursos.Util;
 
@@ -34,6 +35,8 @@ public class ControladorPrecio implements Serializable {
     private CPrecio selObjPrecio;
     private ArrayList<CPrecio> lstPrecios;
     private ArrayList<CPrecio> filteredPrecios;
+    private final HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    private final ControladorUserLogin loginBean = (ControladorUserLogin) session.getAttribute("controladorUserLogin");
 
     /**
      * Creates a new instance of ControladorPrecio
@@ -146,5 +149,45 @@ public class ControladorPrecio implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("Exito", new FacesMessage(e.getMessage()));
         }
+    }
+
+    public String precio(int intSevicioId) {
+        String precio = "";
+        try {
+            int intTipoId = 0;
+            if (loginBean.getRolCarrera().getNombreRol().equals("EST")) //Si es estudiante
+            {
+                intTipoId = 1;
+            } else {
+                intTipoId = 2;
+            }
+            precio = Double.toString(MPrecio.precio(intSevicioId, intTipoId));
+            if (precio.equals("0.0")) {
+                precio = "No definido";
+            } else {
+                precio = "$ " + precio;
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return precio;
+    }
+
+    public double precioVent(int intSevicioId) {
+        double precio = 0;
+        try {
+            int intTipoId = 0;
+            if (loginBean.getRolCarrera().getNombreRol().equals("EST")) //Si es estudiante
+            {
+                intTipoId = 1;
+            } else {  //No esestudiante
+                intTipoId = 2;
+            }
+            precio = MPrecio.precio(intSevicioId, intTipoId);
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return precio;
     }
 }

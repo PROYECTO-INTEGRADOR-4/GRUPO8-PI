@@ -116,6 +116,7 @@ public class ControladorMenuView {
         model.addElement(segundoSubmenu);
     }
 
+    //<editor-fold desc="Menu del Cliente">
     public void menuCliente() {
         model = new DefaultMenuModel();
 
@@ -125,12 +126,6 @@ public class ControladorMenuView {
         DefaultMenuItem item = new DefaultMenuItem("Inicio");
         item.setIcon("ui-icon-home");
         item.setOutcome("/UsuarioNormal/bienvenida/inicio.xhtml");
-        primerSubmenu.addElement(item);
-
-        item = new DefaultMenuItem("Mis Datos");
-        item.setIcon("ui-icon-person");
-        item.setCommand("#");
-        item.setAjax(false);
         primerSubmenu.addElement(item);
 
         item = new DefaultMenuItem("Salir");
@@ -153,6 +148,7 @@ public class ControladorMenuView {
         }
         model.addElement(segundoSubmenu);
     }
+    //</editor-fold>
 
     public void menuPrincipal() {
         model = new DefaultMenuModel();

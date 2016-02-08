@@ -10,7 +10,7 @@
     </ui:define>
 
     <ui:define name="body" >
-        <h:form id="TdesayunoListForm">
+        <h:form id="TmenuListForm">
             <center>
                 <p:panelGrid columns="1" layout="grid" style="background-color: #000">
 
@@ -22,57 +22,96 @@
                     <h:outputText style="float: left; font-size: 15px; margin-left: 15px" value="SERVICIO DE ALIMENTACION"/>
 
                     <h:outputText  style="font-size: 15px;" value="MENU DIARIO DE PREPARACIONES"/>
-                    <h:outputText style="font-size: 15px;" value="Precio: "/>
+                    <h:outputLabel 
+                        id="lblPrecio"
+                        style="font-size: 15px; background-color: yellow" 
+                        value="Precio: #{controladorPrecio.precio(param.get('id'))}"/>
                 </p:panelGrid>
             </center>
 
-            <p:panel header="#{param.get('servicio')} #{controladorMenu.setId(param.get('id'))}">
+            <p:panel header="#{controladorMenu.setId(param.get('id'))}">
+                <f:facet name="header">
+                    <h:outputText 
+                        style="font-size: 15px" value="#{param.get('servicio')} "/>
+                </f:facet>
 
                 <p:dataTable 
                     id="datalist" 
                     value="#{controladorMenu.lstMenus}"
                     var="item"
-                    selectionMode="single" 
                     selection="#{controladorMenu.selObjMenu}"
-
                     rowKey="#{item.intMenuId}"
                     reflow="true" 
                     rows="10"
-
-
+                    style="text-align: center"
                     >
                     <p:column headerText="Descripción">
                         <h:inputTextarea 
                             disabled="true"
                             rows="6"
-                            cols="35"
+                            cols="45"
                             readonly="true"
                             style="
                             background: transparent;
                             border: transparent;
                             font-style: normal;
                             "
+                            label="#{item.strMenuDescripcion}"
                             value="#{item.strMenuDescripcion}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha Ingreso">
-                        <h:outputText value="#{item.dtFechaIngreso}"/>
+                    <p:column headerText="Fecha Servicio" style="width: 200px">
+                        <h:outputText 
+                            value="#{item.dtFechaIngreso}"/>
                     </p:column>
 
-                    <p:column headerText="Fecha Ingreso">
-                        <h:outputText value="#{item.dtFechaServir}"/>
+                    <p:column headerText="Cantidad Disponible" style="width: 200px">
+                        <h:outputText 
+                            value="#{item.intCantDisponible}"/>
                     </p:column>
 
-                    <p:column headerText="Acciones">
-                        <f:facet name="header">
+                    <p:column headerText="Acciones" style="width: 200px">
 
-                        </f:facet>
+                        <p:panel rendered="#{controladorPrecio.precioVent(item.objServicio.codigoservicio)!=0}">
+                            <p:panelGrid id="grid" layout="grid" columns="2">
+                                <h:outputLabel 
+                                    for="txtCantidad" 
+                                    value="Cantidad:" 
+                                    style="font-weight:bold"/>                    
+                                <p:selectOneMenu 
+                                    id="txtCantidad"
+                                    value="#{controladorComprobante.objCS.intCantidad}"
+                                    title="Cantidad"
+                                    rendered="true"
+                                    requiredMessage="Es necesario seleccionar la cantidad">
+                                    <f:selectItem itemLabel="1" itemValue="1" />
+                                    <f:selectItem itemLabel="2" itemValue="2" />
+                                    <f:selectItem itemLabel="3" itemValue="3" />
+                                    <f:selectItem itemLabel="4" itemValue="4" />
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton 
+
+                                id="editButton"  
+                                title="Modificar" 
+                                icon="ui-icon-pencil" 
+                                update=":TmenuCompraForm" 
+                                oncomplete="PF('TmenuCompraDialog').show()">
+                                <f:setPropertyActionListener 
+                                    value="#{item.objServicio}" 
+                                    target="#{controladorComprobante.objCS.objServicio}"/>
+
+                                <f:setPropertyActionListener 
+                                    value="#{controladorPrecio.precioVent(item.objServicio.codigoservicio)}" 
+                                    target="#{controladorComprobante.objCS.dblPrecio}"/>
+                            </p:commandButton>
+                        </p:panel>
                     </p:column>
 
                 </p:dataTable>
             </p:panel>
         </h:form>
-        <ui:include src="crear.xhtml"/>
+        <ui:include src="compra.xhtml"/>
     </ui:define>
 </ui:composition>
 
