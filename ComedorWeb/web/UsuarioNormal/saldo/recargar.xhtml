@@ -1,0 +1,45 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+    <p:dialog 
+        id="TsaldoRecargarDlg" 
+        widgetVar="TsaldoRecargarDialog" 
+        modal="true" 
+        resizable="false" 
+        appendTo="@(body)" 
+        header="Recargar" 
+        showEffect="fade" 
+        hideEffect="explode"
+        responsive="true">
+        <h:form id="TsaldoRecargarForm">
+            <h:panelGroup id="display">
+                <p:panelGrid 
+                    columns="2" 
+                    rendered="#{controladorDetalle.selObjDetalle!=null}"
+                    styleClass="tblForm">  
+                    <h:outputLabel value="Valor" for="txtValor" />
+                    <p:inputText
+                        id="txtValor"
+                        value="#{controladorDetalle.selObjDetalle.dblValor}" 
+                        title="Ingrese valor"
+                        required="true" 
+                        requiredMessage="Es necesario ingresar el valor"/>
+                </p:panelGrid>
+                <p:separator/>
+                <p:commandButton 
+                    value="Cancelar" 
+                    onclick="PF('TsaldoRecargarDialog').hide()" 
+                    type="reset" 
+                    styleClass="btnRight"/>
+                <p:commandButton 
+                    value="Guardar" 
+                    actionListener="#{controladorDetalle.insertar()}"
+                    update="display,:TsaldoListForm:datalist" 
+                    styleClass="btnRight"/>
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+</ui:composition>
+

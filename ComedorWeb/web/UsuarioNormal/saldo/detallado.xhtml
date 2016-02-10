@@ -1,0 +1,58 @@
+<ui:composition  
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/plantilla/template.xhtml">
+    <h:head>
+        <script name="jquery/jquery.js" library="primefaces"></script>
+    </h:head>
+    <ui:define name="title">
+        <h:outputText value="Saldo Detallado"/>
+    </ui:define>
+    <ui:define name="body" >
+        <h:form id="TsaldoListForm" prependId="false">
+            <p:growl id="acceptedMessage" showDetail="true"></p:growl>
+            <p:growl id="refusedMessage" showDetail="true"></p:growl>
+            <p:panel id="panel" >
+                <f:facet name="header">
+                    <p:outputLabel value="Informe Detallado" />
+                </f:facet>
+                <p:dataTable 
+                    id="datalist" 
+                    value="#{controladorCliente.lstDetallado}"
+                    var="item"
+                    selectionMode="single"
+                    selection="#{controladorCliente.selObjDetalle}"
+                    rowKey="#{item.intDetalleId}"
+                    reflow="true" 
+                    rows="5"
+                    rowsPerPageTemplate="5,10,20,30,40,50"
+                    paginator="true"
+                    style="text-align: center">
+
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{item.dtFecha}"/>
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <h:outputText value="$ #{item.dblValor}"/>
+                    </p:column>
+                    <p:column headerText="Saldo">
+                        <h:outputText style="#{controladorCliente.objDetalle.dblValor}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <f:facet name="footer">
+                    <p:panelGrid columns="2" layout="grid" style="text-align: right">
+                        <p:outputLabel
+                            value="Saldo Disponible: "/>
+                        <p:outputLabel
+                            value="$ #{controladorCliente.objDetalle.dblValor}"
+                            style="background-color: yellow;"/>
+                    </p:panelGrid>
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

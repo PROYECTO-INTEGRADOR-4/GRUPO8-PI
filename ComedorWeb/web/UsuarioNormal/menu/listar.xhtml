@@ -98,12 +98,14 @@
                                 update=":TmenuCompraForm" 
                                 oncomplete="PF('TmenuCompraDialog').show()">
                                 <f:setPropertyActionListener 
-                                    value="#{item.objServicio}" 
-                                    target="#{controladorComprobante.objCS.objServicio}"/>
-
+                                    value="#{item}" 
+                                    target="#{controladorComprobante.objCS.objMenu}"/>
                                 <f:setPropertyActionListener 
                                     value="#{controladorPrecio.precioVent(item.objServicio.codigoservicio)}" 
                                     target="#{controladorComprobante.objCS.dblPrecio}"/>
+                                <f:setPropertyActionListener 
+                                    value="#{controladorUserLogin.objUserLogin}"
+                                    target="#{controladorComprobante.objCS.objCliente}"/>
                             </p:commandButton>
                         </p:panel>
                     </p:column>

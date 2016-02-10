@@ -85,4 +85,34 @@ public class mLogin {
         return port.getDatosUsuarioCarrera(codCarrera, cedula);
     }
 
+    //Buscar cliente
+    public static List<RolCarrera> buscar(String strCedula) throws Exception {
+        List<RolCarrera> ltsRoles = new ArrayList<>();
+        try {
+            ArrayOfRolCarrera objArrayOfRolCarrera = getRolUsuarioCarrera(strCedula);
+            if (objArrayOfRolCarrera != null) {
+                List<RolCarrera> objRolCarrera = objArrayOfRolCarrera.getRolCarrera();
+                ltsRoles = objRolCarrera;
+            } else {
+                ltsRoles.clear();
+            }
+        } catch (Exception e) {
+            ltsRoles.clear();
+            throw e;
+        }
+        return ltsRoles;
+    }
+
+    private static ArrayOfRolCarrera getRolUsuarioCarrera(java.lang.String login) {
+        wsSeguridad.Seguridad service = new wsSeguridad.Seguridad();
+        wsSeguridad.SeguridadSoap port = service.getSeguridadSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getRolUsuarioCarrera(login);
+    }
 }

@@ -16,18 +16,20 @@ public class CComprobante {
 
     private int idId;
     private int intNum;
+    private CMenu objMenu;
     private Persona objCliente;
     private CServicio objServicio;
     private Date dtFecha;
-    private int intCantidad;
+    public int intCantidad;
     private double dblPrecio;
 
     public CComprobante() {
     }
 
-    public CComprobante(int idId, int intNum, Persona objCliente, CServicio objServicio, Date dtFecha, int intCantidad, double dblPrecio) {
+    public CComprobante(int idId, int intNum, CMenu objMenu, Persona objCliente, CServicio objServicio, Date dtFecha, int intCantidad, double dblPrecio) {
         this.idId = idId;
         this.intNum = intNum;
+        this.objMenu = objMenu;
         this.objCliente = objCliente;
         this.objServicio = objServicio;
         this.dtFecha = dtFecha;
@@ -49,6 +51,14 @@ public class CComprobante {
 
     public void setIntNum(int intNum) {
         this.intNum = intNum;
+    }
+
+    public CMenu getObjMenu() {
+        return objMenu;
+    }
+
+    public void setObjMenu(CMenu objMenu) {
+        this.objMenu = objMenu;
     }
 
     public Persona getObjCliente() {

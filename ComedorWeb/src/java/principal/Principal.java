@@ -17,6 +17,7 @@ import wsInfoCarrera.Estudiante;
 import wsInfoCarrera.Persona;
 import wsInfoGeneral.ArrayOfInstitucionEstudiante;
 import wsInfoGeneral.ArrayOfUnidadAcademica;
+import wsInfoGeneral.InstitucionEstudiante;
 import wsSeguridad.ArrayOfRolCarrera;
 import wsSeguridad.RolCarrera;
 import wsWSInterop.Empleado;
@@ -56,13 +57,13 @@ public class Principal {
     public static void main(String arg[]) {
 
         // ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
-        List<wsWSInterop.AdministrativoJefe> objE = getAdministrativosJefe();
-        objE.stream().forEach((Empleado) -> {
-            System.out.println("\nCedula: " + Empleado.getStrCedula());
-            System.out.println("Nombre: " + Empleado.getStrNombres());
-            System.out.println("Rol: " + Empleado.getStrCargo());
-        });
-        /* 
+        /*List<wsWSInterop.AdministrativoJefe> objE = getAdministrativosJefe();
+         objE.stream().forEach((Empleado) -> {
+         System.out.println("\nCedula: " + Empleado.getStrCedula());
+         System.out.println("Nombre: " + Empleado.getStrNombres());
+         System.out.println("Rol: " + Empleado.getStrCargo());
+         });
+
          ArrayOfInstitucionEstudiante estudiante = getInstitucionEstudiante("180419297-7");
          List<InstitucionEstudiante> datosEstudiante = estudiante.getInstitucionEstudiante();
          datosEstudiante.stream().forEach((datosE) -> {
@@ -91,6 +92,13 @@ public class Principal {
          System.out.println("Nombre: " + Carrera.getNombre());
          });
          */
+        ArrayOfRolCarrera carrera = getRolUsuarioCarrera("180419297-7");
+        List<RolCarrera> rol = carrera.getRolCarrera();
+        for (RolCarrera Rol : rol) {
+            System.out.println("Carrera: " + Rol.getCodigoCarrera());
+            System.out.println("Rol: " + Rol.getNombreRol());
+        }
+
         /*
          Si el usuario al menos tiene un rol, quiere decir que se encutra
          registrado como estudiante o docente de la poli.
@@ -200,5 +208,4 @@ public class Principal {
 
         return port.getAdministrativosJefe();
     }
-
 }

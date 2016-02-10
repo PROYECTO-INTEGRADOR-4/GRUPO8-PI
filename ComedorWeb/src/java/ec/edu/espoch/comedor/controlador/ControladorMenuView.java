@@ -72,12 +72,6 @@ public class ControladorMenuView {
         item.setOutcome("/Administrador/bienvenida/inicio.xhtml");
         primerSubmenu.addElement(item);
 
-        item = new DefaultMenuItem("Mis Datos");
-        item.setIcon("ui-icon-person");
-        item.setCommand("#");
-        item.setAjax(false);
-        primerSubmenu.addElement(item);
-
         item = new DefaultMenuItem("Salir");
         item.setIcon("ui-icon-power");
         item.setCommand("#{controladorUserLogin.logout}");
@@ -112,8 +106,17 @@ public class ControladorMenuView {
         }
         segundoSubmenu.addElement(menuSubmenu);
 
+        //Tercer Submenu
+        DefaultSubMenu tercerSubmenu = new DefaultSubMenu("Recargar");
+
+        item = new DefaultMenuItem("Saldo");
+        item.setIcon("");
+        item.setOutcome("/Administrador/saldo/buscar.xhtml");
+        tercerSubmenu.addElement(item);
+
         model.addElement(primerSubmenu);
         model.addElement(segundoSubmenu);
+        model.addElement(tercerSubmenu);
     }
 
     //<editor-fold desc="Menu del Cliente">
@@ -147,6 +150,24 @@ public class ControladorMenuView {
             segundoSubmenu.addElement(item);
         }
         model.addElement(segundoSubmenu);
+
+        //Tercer submenu
+        DefaultSubMenu tercerSubmenu = new DefaultSubMenu();
+        tercerSubmenu.setLabel("Saldo");
+
+        item = new DefaultMenuItem("Total");
+        item.setIcon("");
+        item.setOutcome("/UsuarioNormal/saldo/total.xhtml");
+        item.setCommand("#{controladorCliente.total}");
+        tercerSubmenu.addElement(item);
+
+        item = new DefaultMenuItem("Detallado");
+        item.setIcon("");
+        item.setOutcome("/UsuarioNormal/saldo/detallado.xhtml");
+        item.setCommand("#{controladorCliente.detallado()}");
+        tercerSubmenu.addElement(item);
+
+        model.addElement(tercerSubmenu);
     }
     //</editor-fold>
 

@@ -6,8 +6,11 @@
 package ec.edu.espoch.comedor.controlador;
 
 import ec.edu.espoch.comedor.entidad.CComprobante;
+import ec.edu.espoch.comedor.modelo.MComprobante;
 import java.io.Serializable;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.context.DefaultRequestContext;
+import recursos.Util;
 
 /**
  *
@@ -18,7 +21,6 @@ public class ControladorComprobante implements Serializable {
 
     private CComprobante objCS;
     private CComprobante selObjCS;
-    private int precio;
 
     /**
      * Creates a new instance of ControladorClienteServicio
@@ -45,16 +47,33 @@ public class ControladorComprobante implements Serializable {
         this.selObjCS = selObjCS;
     }
 
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
     public int num() {
         float a = (float) 4.5;
         return Math.round(a);
+    }
+
+    //<editor-fold desc="Insertar">
+    public void insertar() {
+        try {
+            if (MComprobante.insertar(objCS)) {
+                DefaultRequestContext.getCurrentInstance().execute("PF('TmenuCompraDialog').hide()");
+                Util.addSuccessMessage("Compra exitosa");
+                //   this.objCS = new CComprobante();
+            } else {
+                Util.mostrarMensaje("No se realizo la compra. ! Saldo insuficiente");
+            }
+        } catch (Exception e) {
+            Util.addErrorMessage(e.getMessage());
+        }
+
+    }
+//</editor-fold>
+
+    public double total() {
+        int cantidad = objCS.getIntCantidad();
+        double precio = objCS.getDblPrecio();
+        double total = cantidad * precio;
+
+        return Math.rint(total * 100) / 100;
     }
 }

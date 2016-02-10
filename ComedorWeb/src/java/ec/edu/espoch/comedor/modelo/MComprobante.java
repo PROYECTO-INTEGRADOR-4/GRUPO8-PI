@@ -17,32 +17,34 @@ import ec.edu.espoch.comedor.entidad.CComprobante;
  *
  * @author SYSTEMarket-pc
  */
-public class MCuentaServicio {
-    /*
-     public static boolean insertarCuentaServicio(CComprobante cuservicio) throws Exception {
-     boolean respuesta = false;
-     try {
-     String sql = "Select * from fn_insert_tcuentaservicio(?)";
-     ArrayList<Parametro> lstpar = new ArrayList<>();
-     lstpar.add(new Parametro(1, cuservicio.getObjCuenta().getIdCuenta()));
-     lstpar.add(new Parametro(2, cuservicio.getObjServicio().getCodigoservicio()));
-     lstpar.add(new Parametro(3, cuservicio.getFechaServicioCliente()));
-     lstpar.add(new Parametro(4, cuservicio.getCantidad()));
+public class MComprobante {
 
-     ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
-     while (rs.next()) {
-     if (rs.getBoolean(0) == true) {
-     respuesta = true;
-     }
-     }
-     rs = null;
-     lstpar = null;
-     } catch (Exception e) {
-     throw e;
-     }
-     return respuesta;
-     }
-    
+    public static boolean insertar(CComprobante objC) throws Exception {
+        boolean respuesta = false;
+        try {
+            String sql = "select *from fn_insert_tcomprobante(?,?,?,?,?,?);";
+            ArrayList<Parametro> lstpar = new ArrayList<>();
+            lstpar.add(new Parametro(1, objC.getIntNum()));
+            lstpar.add(new Parametro(2, objC.getObjMenu().getDtFechaServir()));
+            lstpar.add(new Parametro(3, objC.getIntCantidad()));
+            lstpar.add(new Parametro(4, objC.getDblPrecio()));
+            lstpar.add(new Parametro(5, objC.getObjMenu().getObjServicio().getCodigoservicio()));
+            lstpar.add(new Parametro(6, objC.getObjCliente().getCedula()));
+
+            ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
+            while (rs.next()) {
+                if (rs.getBoolean(0) == true) {
+                    respuesta = true;
+                }
+            }
+            rs = null;
+            lstpar = null;
+        } catch (Exception e) {
+            throw e;
+        }
+        return respuesta;
+    }
+    /*
      public static boolean modificarCuentaServicio(CComprobante cuentaser) throws Exception {
      boolean respuesta = false;
      try {

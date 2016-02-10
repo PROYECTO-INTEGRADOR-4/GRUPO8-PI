@@ -32,12 +32,17 @@
                         <h:outputLabel value="Cédula: " for="txtCedula" />
                         <p:outputLabel
                             id="txtCedula"
-                            value="#{controladorUserLogin.objUserLogin.cedula}" 
+                            value="#{controladorComprobante.objCS.objCliente.cedula}" 
                             />
-                        <h:outputLabel value="Cliente: " for="txtCliente" />
+                        <h:outputLabel value="Apellidos:  " for="txtApellidos" />
                         <p:outputLabel
-                            id="txtCliente"
-                            value="#{controladorUserLogin.objUserLogin.nombres} #{controladorUserLogin.objUserLogin.apellidos}" 
+                            id="txtApellidos"
+                            value="#{controladorComprobante.objCS.objCliente.apellidos}" 
+                            />
+                        <h:outputLabel value="Nombres: " for="txtNombres" />
+                        <p:outputLabel
+                            id="txtNombres"
+                            value="#{controladorComprobante.objCS.objCliente.nombres}" 
                             />
                         <h:outputLabel value="Rol: " for="txtRol" />
                         <p:outputLabel
@@ -48,9 +53,14 @@
                         <h:outputLabel value="Servicio: " for="txtServicio" />
                         <p:outputLabel
                             id="txtServicio"
-                            value="#{controladorComprobante.objCS.objServicio.descripcionservicio}" 
+                            value="#{controladorComprobante.objCS.objMenu.objServicio.descripcionservicio}" 
                             />
 
+                        <h:outputLabel value="Fecha Servicio: " for="txtFecha" />
+                        <p:outputLabel
+                            id="txtFecha"
+                            value="#{controladorComprobante.objCS.objMenu.dtFechaServir}" 
+                            />
                         <h:outputLabel value="Precio: " for="txtPrecio" />
                         <p:outputLabel
                             id="txtPrecio"
@@ -67,7 +77,7 @@
                         <p:outputLabel
                             id="txtTotal"
                             style="background-color: yellow"
-                            value="$ #{controladorComprobante.objCS.intCantidad * controladorComprobante.objCS.dblPrecio}" 
+                            value="$ #{controladorComprobante.total()}" 
                             />
 
                     </p:panelGrid>
@@ -79,7 +89,7 @@
                         styleClass="btnRight"/>
                     <p:commandButton 
                         value="Aceptar" 
-                        actionListener="#{controladorMenu.eliminar()}"
+                        actionListener="#{controladorComprobante.insertar}"
                         update="display,:TmenuListForm:datalist,:msgs" 
                         styleClass="btnRight"/>
                 </h:panelGroup>
