@@ -60,4 +60,9 @@
         <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorDetalle</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>controladorReporte</managed-bean-name>
+        <managed-bean-class>ec.edu.espoch.comedor.controlador.ControladorReporte</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

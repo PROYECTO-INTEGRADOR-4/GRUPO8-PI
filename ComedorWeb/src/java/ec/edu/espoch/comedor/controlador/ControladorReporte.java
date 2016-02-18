@@ -7,9 +7,12 @@ package ec.edu.espoch.comedor.controlador;
 
 import ec.edu.espoch.comedor.entidad.*;
 import ec.edu.espoch.comedor.modelo.MReporte;
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 /**
  *
@@ -17,21 +20,20 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ControladorReporte {
+@Named("controladorReporte")
+public class ControladorReporte implements Serializable {
 
     /**
      * Creates a new instance of ControladorReporte
      */
-    
-      private CReporte objRep;// st objeto para insertar
+    private CReporte objRep;// st objeto para insertar
     private CReporte selRep;//st objeto seleccionar
-    private ArrayList <CReporte> lstRep;
-   
+    private ArrayList<CReporte> lstRep;
 
     public ControladorReporte() {
-        this.objRep = objRep;
-        this.selRep = selRep;
-        this.lstRep = lstRep;
+        this.objRep = new CReporte();
+        this.selRep = new CReporte();
+        this.lstRep = new ArrayList<>();
     }
 
     public CReporte getObjRep() {
@@ -57,25 +59,27 @@ public class ControladorReporte {
     public void setLstRep(ArrayList<CReporte> lstRep) {
         this.lstRep = lstRep;
     }
-    
-    
-     public void cargarAlmuerzo()
-    {
-    try{
-        this.lstRep=MReporte.obtenerAlmuerzo();
-        }catch(Exception e){
-            System.out.println("e"+e.getMessage().toString());
+
+    @PostConstruct
+    public void reinit() {
+      //  cargarAlmuerzo();
+        // cargarDesayuno();
     }
+
+    public void cargarAlmuerzo() {
+        try {
+            this.lstRep = MReporte.obtenerAlmuerzo();
+        } catch (Exception e) {
+            System.out.println("e" + e.getMessage().toString());
+        }
     }
-    
-     public void cargarDesayuno()
-    {
-    try{
-        this.lstRep=MReporte.obtenerDesayuno();
-        }catch(Exception e){
-            System.out.println("e"+e.getMessage().toString());
+
+    public void cargarDesayuno() {
+        try {
+            this.lstRep = MReporte.obtenerDesayuno();
+        } catch (Exception e) {
+            System.out.println("e" + e.getMessage().toString());
+        }
     }
-    }
-    
-    
+
 }

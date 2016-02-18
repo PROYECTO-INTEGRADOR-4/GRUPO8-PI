@@ -19,8 +19,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import wsInfoCarrera.Persona;
 import wsSeguridad.RolCarrera;
-import wsWSInterop.Administrativo;
-import wsWSInterop.Empleado;
 
 /**
  *
@@ -104,37 +102,18 @@ public class ControladorUserLogin implements Serializable {
                 rolCarrera = lstRoles.get(0);
                 this.objUserLogin = mLogin.datosUsuario(rolCarrera.getCodigoCarrera(), username);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
-
             } else {
-                Administrativo objDatosAdmin = mLogin.loginAdmin(username);
-                if (objDatosAdmin != null) {
-                    // //Por el momento para administrador
-                    //  if (username.equals("060199648-1") && password.equals("060199648-1")) {
+                // //Por el momento para administrador
+                if (username.equals("0200949113") && password.equals("0200949113")) {
                     logeado = true;
-                    if (objDatosAdmin.getStrCargo().equals("Jefe Servicio Alimentacion")) {
-                        this.rolCarrera.setNombreRol("Administrador");
-                    } else {
-                        this.rolCarrera.setNombreRol(objDatosAdmin.getStrCargo());
-                    }
-                    this.objUserLogin.setCedula(objDatosAdmin.getStrCedula());
-                    this.objUserLogin.setApellidos(" ");
-                    this.objUserLogin.setNombres(objDatosAdmin.getStrNombres());
+                    this.rolCarrera.setNombreRol("Administrador");
+                    this.objUserLogin.setCedula(username);
+                    this.objUserLogin.setApellidos("Sanchez");
+                    this.objUserLogin.setNombres("Zoila");
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
                 } else {
-                    Empleado objDatosEmpleado = mLogin.loginEmpleado(username);
-                    if (objDatosEmpleado != null) {
-                        // //Por el momento para administrador
-                        //  if (username.equals("060199648-1") && password.equals("060199648-1")) {
-                        logeado = true;
-                        this.rolCarrera.setNombreRol("Empleado");
-                        this.objUserLogin.setCedula(objDatosEmpleado.getStrCedula());
-                        this.objUserLogin.setApellidos(" ");
-                        this.objUserLogin.setNombres(objDatosEmpleado.getStrNombres());
-                        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", objUserLogin.getNombres() + " " + objUserLogin.getApellidos());
-                    } else {
-                        logeado = false;
-                        message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
-                    }
+                    logeado = false;
+                    message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Credenciales no válidas");
                 }
             }
 

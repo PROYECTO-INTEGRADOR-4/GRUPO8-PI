@@ -24,45 +24,22 @@
                     rows="10"
                     rowsPerPageTemplate="10,20,30,40,50"
                     widgetVar="dataTable"
-                    
+
                     >
 
                     <f:facet name="header">
                         <p:commandButton 
                             id="btnimprimir" 
                             icon="ui-icon-print"   
-                            value="IMPRIMIR" 
-                            update=":TmenuCreateForm"
-                            oncomplete="PF('TmenuCreateDialog').show()">
-                            <p:printer target="../../../src/java/reportes/resportedesayuno.jrprint" /> 
+                            value="IMPRIMIR" >
+                            <p:printer target="" /> 
 
 
                         </p:commandButton>                       
                     </f:facet>
 
-                    <f:facet name="header">
-                        <p:outputPanel style="margin-top: 10px">
-                            <h:form>
-                                <img src="../../resources/images/search104.png" width="16" height="16" alt="search104"/>
-                            </h:form>
-                            <h:outputText/>
-                            <p:inputText 
-                                id="globalFilter" 
-                                onkeyup="PF('dataTable').filter()" 
-                                style="width:150px" 
-                                placeholder="Buscar"/>
-                        </p:outputPanel>
-                    </f:facet>
-
-                    <p:ajax 
-                        event="rowSelect"  
-                        update="createButton"/>
-                    <p:ajax 
-                        event="rowUnselect" 
-                        update="createButton"/>
-
-                   <p:column headerText="Cedula Cliente">
-                       <h:outputText value="#{item.cedula}"/>
+                    <p:column headerText="Cedula Cliente">
+                        <h:outputText value="#{item.cedula}"/>
                     </p:column>
 
                     <p:column headerText="Fecha Reservación">
@@ -72,13 +49,12 @@
                     <p:column headerText="Cantidad Reservada">
                         <h:outputText value="#{item.cantidad}"/>
                     </p:column>
-                    <p:column headerText="Cantidad Pagada">
-                        <h:outputText value="#{item.precio}"/>
+                    <p:column headerText="Valor Pagado">
+                        <h:outputText value="$ #{item.precio * item.cantidad}"/>
                     </p:column>
                 </p:dataTable>
             </p:panel>
         </h:form>
-        <ui:include src="crear.xhtml"/>
     </ui:define>
 </ui:composition>
 

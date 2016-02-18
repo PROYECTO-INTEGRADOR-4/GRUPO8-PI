@@ -20,11 +20,16 @@
             <h:form id="TmenuDeleteForm">
                 <h:panelGroup id="display">
                     <p:panelGrid 
-                        columns="2" 
+                        columns="1" 
                         rendered="#{controladorMenu.selObjMenu != null}" 
                         styleClass="tblForm">                        
-                        <h:outputText 
-                            value="¿Está seguro que desea eliminar el menu #{controladorMenu.selObjMenu.strMenuDescripcion}?"/>
+                        <p:outputLabel
+                            value="¿Está seguro que desea eliminar el menu: "/>
+                        <p:inputTextarea
+                            readonly="true"
+                            value="#{controladorMenu.selObjMenu.strMenuDescripcion}"/>
+                        <p:outputLabel
+                            value=" ?"/>
                     </p:panelGrid>
                     <p:separator/>
                     <p:commandButton 

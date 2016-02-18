@@ -85,16 +85,41 @@
                         <h:outputText value="#{item.dtFechaServir}"/>
                     </p:column>
 
-                    <p:column headerText="Acciones">
-                        <f:facet name="header">
+                    <p:column>  
+                        <f:facet name="header">  
+                            <h:outputText value="Acciones" />  
+                        </f:facet>  
 
-                        </f:facet>
+                        <p:commandButton 
+                            id="editButton"  
+                            value="Modificar"
+                            title="Modificar" 
+                            icon="ui-icon-pencil" 
+                            update=":TmenuEditForm" 
+                            oncomplete="PF('TmenuEditDialog').show()">
+                            <f:setPropertyActionListener 
+                                value="#{item}" 
+                                target="#{controladorMenu.selObjMenu}"/>
+                        </p:commandButton>
+                        <p:commandButton 
+                            id="deleteButton"
+                            value="Eliminar"
+                            title="Eliminar" 
+                            icon="ui-icon-trash" 
+                            update=":TmenuDeleteForm" 
+                            oncomplete="PF('TmenuDeleteDialog').show()">
+                            <f:setPropertyActionListener 
+                                value="#{item}" 
+                                target="#{controladorMenu.selObjMenu}"/>
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
             </p:panel>
         </h:form>
         <ui:include src="crear.xhtml"/>
+        <ui:include src="editar.xhtml"/>
+        <ui:include src="eliminar.xhtml"/>
     </ui:define>
 </ui:composition>
 

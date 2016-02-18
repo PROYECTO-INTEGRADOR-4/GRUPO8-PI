@@ -12,10 +12,21 @@ import java.util.Date;
  * @author ANGELA
  */
 public class CReporte {
+
     private Date fecha;
     private Integer cantidad;
     private double precio;
     private String cedula;
+
+    public CReporte() {
+    }
+
+    public CReporte(Date fecha, Integer cantidad, double precio, String cedula) {
+        this.fecha = fecha;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.cedula = cedula;
+    }
 
     public Date getFecha() {
         return fecha;
@@ -49,15 +60,4 @@ public class CReporte {
         this.cedula = cedula;
     }
 
-    public CReporte(Date fecha, Integer cantidad, double precio, String cedula) {
-        this.fecha = fecha;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.cedula = cedula;
-    }
-
-    public CReporte() {
-    }
-    
-        
 }
