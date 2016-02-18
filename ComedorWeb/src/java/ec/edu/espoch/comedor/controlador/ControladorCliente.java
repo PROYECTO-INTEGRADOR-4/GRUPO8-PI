@@ -100,7 +100,7 @@ public class ControladorCliente {
             boolean valid = false;
             // Do some computation
             String strCedula = loginBean.getObjUserLogin().getCedula();
-            if (!"".equals(strCedula)) {
+            if (!"".equals(strCedula) && loginBean.getRolCarrera().getNombreRol().equals("EST") && loginBean.getRolCarrera().getNombreRol().equals("DOC")) {
                 lstDetalle.clear();
                 valid = true;
                 this.objDetalle.setObjPersona(mLogin.datosUsuario(loginBean.getRolCarrera().getCodigoCarrera(), strCedula));
@@ -111,6 +111,17 @@ public class ControladorCliente {
                 this.objDetalle.setDblValor(saldo);
                 this.lstDetalle.add(objDetalle);
             } else {
+                if (!"".equals(strCedula)) {
+                    lstDetalle.clear();
+                    valid = true;
+                    //this.objDetalle.setObjPersona(mLogin.datosUsuario(loginBean.getRolCarrera().getCodigoCarrera(), strCedula));
+                    double saldo = MDetalle.saldoTotal(strCedula);
+                    if (saldo >= 1) {
+                        saldo = Math.rint(saldo * 100) / 100;
+                    }
+                    this.objDetalle.setDblValor(saldo);
+                    this.lstDetalle.add(objDetalle);
+                }
 
             }
             if (valid) {

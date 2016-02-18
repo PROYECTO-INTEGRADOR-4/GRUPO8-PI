@@ -24,7 +24,7 @@
                     columns="2" 
                     rendered="#{controladorPrecio.objCPrecio!=null}"
                     styleClass="tblForm">  
-                    <h:outputLabel value="Servicio" for="cbxServicio"/>
+                    <h:outputLabel value="Servicio: " for="cbxServicio"/>
                     <p:selectOneMenu 
                         id="cbxServicio"
                         value="#{controladorPrecio.objCPrecio.objServicio.codigoservicio}"
@@ -34,7 +34,7 @@
                         <f:selectItems value="#{itemsBean.selectOneItemsServicio}"/>
                     </p:selectOneMenu>
 
-                    <h:outputLabel value="Para" for="cbxTipo"/>
+                    <h:outputLabel value="Para: " for="cbxTipo"/>
                     <p:selectOneMenu 
                         id="cbxTipo"
                         value="#{controladorPrecio.objCPrecio.objTipo.intTipoId}"
@@ -43,7 +43,7 @@
                         requiredMessage="Es necesario seleccionar un servicio">
                         <f:selectItems value="#{itemsBean.selectOneItemsTipo}"/>
                     </p:selectOneMenu>
-                    <h:outputLabel value="Valor" for="txtValor" />
+                    <h:outputLabel value="Valor:  $" for="txtValor" />
                     <p:inputText
                         id="txtValor"
                         value="#{controladorPrecio.objCPrecio.dblValor}" 

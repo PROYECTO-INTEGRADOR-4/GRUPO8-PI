@@ -56,11 +56,12 @@ public class ControladorComprobante implements Serializable {
     public void insertar() {
         try {
             if (MComprobante.insertar(objCS)) {
+                System.out.println("ID Menu " + objCS.getObjMenu().getIntMenuId());
                 DefaultRequestContext.getCurrentInstance().execute("PF('TmenuCompraDialog').hide()");
                 Util.addSuccessMessage("Compra exitosa");
                 //   this.objCS = new CComprobante();
             } else {
-                Util.mostrarMensaje("No se realizo la compra. ! Saldo insuficiente");
+                Util.mostrarMensaje("No se puede  realizar la compra. ! Saldo insuficiente");
             }
         } catch (Exception e) {
             Util.addErrorMessage(e.getMessage());

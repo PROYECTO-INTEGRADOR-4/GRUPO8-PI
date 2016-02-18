@@ -22,7 +22,7 @@ public class MComprobante {
     public static boolean insertar(CComprobante objC) throws Exception {
         boolean respuesta = false;
         try {
-            String sql = "select *from fn_insert_tcomprobante(?,?,?,?,?,?);";
+            String sql = "select *from fn_insert_tcomprobante(?,?,?,?,?,?,?);";
             ArrayList<Parametro> lstpar = new ArrayList<>();
             lstpar.add(new Parametro(1, objC.getIntNum()));
             lstpar.add(new Parametro(2, objC.getObjMenu().getDtFechaServir()));
@@ -30,6 +30,7 @@ public class MComprobante {
             lstpar.add(new Parametro(4, objC.getDblPrecio()));
             lstpar.add(new Parametro(5, objC.getObjMenu().getObjServicio().getCodigoservicio()));
             lstpar.add(new Parametro(6, objC.getObjCliente().getCedula()));
+            lstpar.add(new Parametro(7, objC.getObjMenu().getIntMenuId()));
 
             ConjuntoResultado rs = AccesoDatos.ejecutaQuery(sql, lstpar);
             while (rs.next()) {

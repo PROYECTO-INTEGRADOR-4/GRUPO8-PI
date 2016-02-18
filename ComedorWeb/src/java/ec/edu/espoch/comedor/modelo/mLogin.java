@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import wsInfoCarrera.Persona;
 import wsSeguridad.ArrayOfRolCarrera;
 import wsSeguridad.RolCarrera;
+import wsWSInterop.Administrativo;
+import wsWSInterop.Empleado;
 
 /**
  *
@@ -44,10 +46,58 @@ public class mLogin {
         }
         return roles;
     }
+    /*
+     Login Administrador
+     */
 
+    public static Administrativo loginAdmin(String strCedula) {
+        Administrativo objAdmin = null;
+        try {
+            List<Administrativo> ltsAdmin = getAdministrativos();
+            for (Administrativo objDatos : ltsAdmin) {
+                if (strCedula.equals(objDatos.getStrCedula())) {
+                    objAdmin = new Administrativo();
+                    objAdmin.setStrCedula(objDatos.getStrCedula());
+                    objAdmin.setStrNombres(objDatos.getStrNombres());
+                    objAdmin.setStrCargo(objDatos.getStrCargo());
+                    objAdmin.setStrClave(objDatos.getStrClave());
+
+                    return objAdmin;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+
+        }
+        return objAdmin;
+    }
+
+    /*
+     Login Empleado
+     */
+    public static Empleado loginEmpleado(String strCedula) {
+        Empleado objEmpleado = null;
+        try {
+            List<Empleado> objE = getEmpleados();
+            for (Empleado obj : objE) {
+                if (strCedula.equals(obj.getStrCedula())) {
+                    objEmpleado = new Empleado();
+                    objEmpleado.setStrCedula(obj.getStrCedula());
+                    objEmpleado.setStrNombres(obj.getStrNombres());
+                    objEmpleado.setStrClave(obj.getStrClave());
+
+                    return objEmpleado;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return objEmpleado;
+    }
     /*
      Consumir servicio para autenticar  
      */
+
     private static ArrayOfRolCarrera autenticarUsuarioCarrera(java.lang.String login, java.lang.String password) {
         wsSeguridad.Seguridad service = new wsSeguridad.Seguridad();
         wsSeguridad.SeguridadSoap port = service.getSeguridadSoap();
@@ -115,4 +165,31 @@ public class mLogin {
 
         return port.getRolUsuarioCarrera(login);
     }
+
+    private static java.util.List<wsWSInterop.Administrativo> getAdministrativos() {
+        wsWSInterop.WSInterop service = new wsWSInterop.WSInterop();
+        wsWSInterop.WSInteropSoap port = service.getWSInteropSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getAdministrativos();
+    }
+
+    private static java.util.List<wsWSInterop.Empleado> getEmpleados() {
+        wsWSInterop.WSInterop service = new wsWSInterop.WSInterop();
+        wsWSInterop.WSInteropSoap port = service.getWSInteropSoap();
+
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Binding binding = bindingProvider.getBinding();
+        List<Handler> handlerChain = binding.getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        binding.setHandlerChain(handlerChain);
+
+        return port.getEmpleados();
+    }
+
 }

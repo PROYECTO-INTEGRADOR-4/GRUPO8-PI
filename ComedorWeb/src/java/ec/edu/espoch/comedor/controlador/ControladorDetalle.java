@@ -21,6 +21,8 @@ import org.primefaces.context.RequestContext;
 import recursos.Util;
 import wsInfoCarrera.Persona;
 import wsSeguridad.RolCarrera;
+import wsWSInterop.Administrativo;
+import wsWSInterop.Empleado;
 
 /**
  *
@@ -117,10 +119,47 @@ public class ControladorDetalle implements Serializable {
                     this.lstDetalle.add(objDetalle);
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Búsqueda exitosa", "Cliente si forma parte de la ESPOCH");
                 } else {
-                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No válido", "Cliente no forma parte de la ESPOCH");
-                    lstDetalle.clear();
-                    this.objDetalle = new CDetalle();
+                    Administrativo objAdmin = mLogin.loginAdmin(strCedula);
+                    if (objAdmin != null) {
+                        lstDetalle.clear();
+                        valid = true;
+                        rolCarrera.setNombreRol(objAdmin.getStrCargo());
+                        this.objDetalle.getObjPersona().setNombres(objAdmin.getStrNombres());
+                        this.objDetalle.getObjPersona().setApellidos((" "));
+                        //  double saldo = Math.rint(MDetalle.saldoTotal(strCedula) * 1000) / 1000;
+                        double saldo = MDetalle.saldoTotal(strCedula);
+                        if (saldo >= 1) {
+                            saldo = Math.rint(saldo * 100) / 100;
+                        }
+                        this.objDetalle.setDblValor(saldo);
+                        this.lstDetalle.add(objDetalle);
+                        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Búsqueda exitosa", "Cliente si forma parte de la ESPOCH");
 
+                    } else {
+                        Empleado objEmpleado = mLogin.loginEmpleado(strCedula);
+                        if (objEmpleado != null) {
+                            lstDetalle.clear();
+                            valid = true;
+                            rolCarrera.setNombreRol("Empleado");
+                            this.objDetalle.getObjPersona().setNombres(objEmpleado.getStrNombres());
+                            this.objDetalle.getObjPersona().setApellidos(" ");
+
+                            //  double saldo = Math.rint(MDetalle.saldoTotal(strCedula) * 1000) / 1000;
+                            double saldo = MDetalle.saldoTotal(strCedula);
+                            if (saldo >= 1) {
+                                saldo = Math.rint(saldo * 100) / 100;
+                            }
+                            this.objDetalle.setDblValor(saldo);
+                            this.lstDetalle.add(objDetalle);
+                            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Búsqueda exitosa", "Cliente si forma parte de la ESPOCH");
+
+                        } else {
+                            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No válido", "Cliente no forma parte de la ESPOCH");
+                            lstDetalle.clear();
+                            this.objDetalle = new CDetalle();
+                        }
+
+                    }
                 }
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Ingrese numero de cédula");
