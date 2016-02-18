@@ -113,6 +113,7 @@ public class ControladorMenuView {
         item.setIcon("");
         item.setOutcome("/Administrador/saldo/buscar.xhtml");
         tercerSubmenu.addElement(item);
+      
 
         model.addElement(primerSubmenu);
         model.addElement(segundoSubmenu);
@@ -167,7 +168,20 @@ public class ControladorMenuView {
         item.setCommand("#{controladorCliente.detallado()}");
         tercerSubmenu.addElement(item);
 
+          //submenu de reportes
+        DefaultSubMenu reporteSubmenu = new DefaultSubMenu("Reporte");
+
+        item = new DefaultMenuItem("Almuerzos");
+        item.setIcon("");
+        item.setOutcome("/Administrador/reporte/almuerzos.xhtml");
+        reporteSubmenu.addElement(item);
+        item = new DefaultMenuItem("Desayunos");
+        item.setIcon("");
+        item.setOutcome("/Administrador/reporte/desayunos.xhtml");
+        reporteSubmenu.addElement(item);
         model.addElement(tercerSubmenu);
+           model.addElement(reporteSubmenu);
+    
     }
     //</editor-fold>
 

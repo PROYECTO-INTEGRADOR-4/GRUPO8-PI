@@ -68,7 +68,8 @@ public class ControladorComprobante implements Serializable {
         }
 
     }
-//</editor-fold>
+    
+    //</editor-fold>
 
     public double total() {
         int cantidad = objCS.getIntCantidad();
